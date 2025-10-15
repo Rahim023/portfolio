@@ -1,0 +1,201 @@
+:root {
+  --royal: #2b6ef6;
+  --navy: #05306b;
+  --muted: #6b7280;
+  --soft: #f8fafc;
+  --accent: var(--royal);
+  --radius-lg: 18px;
+  --glass: rgba(255,255,255,0.7);
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: #ffffff;
+  -webkit-font-smoothing:antialiased;
+  color: #0f172a;
+}
+
+/* Fancy navbar radial border */
+.navbar-fancy {
+  border-radius: 22px;
+  padding: 6px;
+  margin: 18px 0;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(43,110,246,0.15), rgba(5,48,107,0.06)),
+    linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+  box-shadow: 0 10px 30px rgba(3, 6, 23, 0.08);
+  border: 3px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Make a gradient border effect */
+.navbar-fancy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 3px;
+  background: conic-gradient(from 120deg at 50% 50%, var(--royal), var(--navy));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+/* Container tweaks */
+.container {
+  max-width: 1100px;
+}
+
+/* Hero */
+.hero-card {
+  border-radius: 16px;
+  border: 1px solid rgba(11,48,107,0.06);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  box-shadow: 0 10px 30px rgba(11,48,107,0.04);
+}
+
+/* Photo carousel */
+.photo-fade {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  height: 380px;
+  background: linear-gradient(180deg, rgba(43,110,246,0.03), rgba(5,48,107,0.02));
+}
+.photo-fade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1s ease, transform 12s ease;
+}
+.photo-fade img.show {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* Cards */
+.card-portrait {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(11,48,107,0.06);
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+}
+.card-portrait:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(11,48,107,0.08);
+}
+
+/* Buttons */
+.btn-royal {
+  background: linear-gradient(90deg, var(--royal), var(--navy));
+  border: none;
+  color: white;
+  box-shadow: 0 8px 18px rgba(11,48,107,0.12);
+}
+
+/* Section heading */
+.section-heading {
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.2px;
+}
+
+/* Small icon circle */
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(43,110,246,0.08), rgba(5,48,107,0.04));
+  color: var(--royal);
+}
+
+/* Social buttons */
+.social-btn {
+  border-radius: 12px;
+  padding: 8px 12px;
+  border: 1px solid rgba(7, 16, 40, 0.04);
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 40px;
+  color: var(--muted);
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
+  .photo-fade { height: 260px; }
+  .navbar-fancy { margin: 12px 0; }
+}
+@media (max-width: 576px) {
+  .photo-fade { height: 200px; }
+  .icon-circle { width: 48px; height: 48px; }
+}
+/* Background radial shade */
+
+/* Card styling with gradient borders & depth */
+.hero-card {
+  background: white;
+  border: 2px solid rgba(150, 150, 150, 0.2);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 40, 120, 0.15),
+    inset 0 0 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease-in-out;
+}
+.hero-card:hover {
+  box-shadow: 0 10px 35px rgba(0, 40, 120, 0.25),
+    inset 0 0 25px rgba(0, 80, 255, 0.1);
+  transform: translateY(-3px);
+  border-color: rgba(70, 120, 255, 0.4);
+}
+
+/* Royal gradient buttons */
+.btn-royal {
+  background: linear-gradient(90deg, #0047ab, #002b70);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+.btn-royal:hover {
+  background: linear-gradient(90deg, #002b70, #0047ab);
+  transform: scale(1.05);
+}
+
+/* Map container border & shadow */
+.map-container {
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 60, 180, 0.15);
+  border: 1px solid rgba(100, 100, 100, 0.3);
+}
+
+/* Portrait images */
+.card-portrait img {
+  object-fit: cover;
+  height: 180px;
+  width: 100%;
+}
+
+/* Smooth transitions */
+.card,
+.btn,
+.badge {
+  transition: all 0.3s ease;
+}
