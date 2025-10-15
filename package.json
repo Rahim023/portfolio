@@ -10,6 +10,7 @@
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.14.1"
   },
+  "homepage": "https://Rahim023.github.io/portfolio",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
