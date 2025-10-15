@@ -146,13 +146,7 @@ export default function Home() {
               </div>
 
               <div className="mt-4 d-flex gap-2 flex-wrap">
-                <a
-                  className="btn btn-outline-secondary"
-                  href="/lookbook.pdf"
-                  download
-                >
-                  Download Lookbook
-                </a>
+            
                 <a
                   className="btn btn-outline-secondary"
                   href="/Abdul_Rahim_Resume_Final_feedback.docx"
