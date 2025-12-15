@@ -4,7 +4,7 @@ import { FiMenu } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 export default function NavBar() {
-  const item = { hidden: { opacity: 0, y: -10 }, show: { opacity: 1, y: 0 } };
+  const item = { hidden: { opacity: 0, y: -8 }, show: { opacity: 1, y: 0 } };
 
   return (
     <motion.nav
@@ -12,18 +12,16 @@ export default function NavBar() {
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.06 } } }}
       className="navbar navbar-expand-lg navbar-light position-relative navbar-fancy"
-      style={{ background: "linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.98))" }}
     >
-      <div className="container p-2">
+      <div className="container-fluid px-2 px-md-3">
         <motion.div variants={item} className="d-flex align-items-center gap-3">
           <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to="/">
-            <div style={{
-              width: 44, height: 44, borderRadius: 12, background: "linear-gradient(180deg,#2b6ef6,#05306b)",
-              display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700
-            }}>AR</div>
+            <div className="brand-badge">AR</div>
             <div style={{ lineHeight: 1 }}>
-              <div style={{ fontSize: 15 }}>Abdul Rahim</div>
-              <small style={{ fontSize: 11, color: "#3b4b6b" }}>Web Designer • MERN Stack Developer</small>
+              <div className="brand-name">Abdul Rahim</div>
+              <small className="brand-sub">
+                Full-Stack (MERN) • AWS • SQL/NoSQL
+              </small>
             </div>
           </Link>
         </motion.div>
@@ -41,21 +39,35 @@ export default function NavBar() {
         </button>
 
         <motion.div variants={item} className="collapse navbar-collapse" id="navMenu">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link" to="/">Home</NavLink>
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+            <li className="nav-item">
+              <NavLink className="nav-link nav-pill" to="/" end>
+                Home
+              </NavLink>
             </li>
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link" to="/projects">Projects</NavLink>
+            <li className="nav-item">
+              <NavLink className="nav-link nav-pill" to="/projects">
+                Projects
+              </NavLink>
             </li>
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link" to="/contact">Contact</NavLink>
+            <li className="nav-item">
+              <NavLink className="nav-link nav-pill" to="/contact">
+                Contact
+              </NavLink>
             </li>
-          <li className="nav-item mx-2 d-none d-lg-block">
-  <Link to="/contact" className="btn btn-royal ms-3">
-    Hire Me
-  </Link>
-</li>
+
+            <li className="nav-item ms-lg-2 d-flex gap-2 mt-2 mt-lg-0">
+              <a
+                className="btn btn-outline-dark btn-sm btn-soft"
+                href="/Abdul_Rahim_Resume_Final_feedback.docx"
+                download
+              >
+                Download Resume
+              </a>
+              <Link to="/contact" className="btn btn-royal btn-sm">
+                Hire Me
+              </Link>
+            </li>
           </ul>
         </motion.div>
       </div>

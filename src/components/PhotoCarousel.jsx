@@ -1,36 +1,33 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-/**
- * Simple fading carousel using framer-motion for subtle entrance.
- * images: array of image URLs (public folder recommended)
- */
 export default function PhotoCarousel({ images = ["/images/mypic1.png"], interval = 4000 }) {
   const [index, setIndex] = useState(0);
-  const timerRef = useRef();
+  const timerRef = useRef(null);
 
   useEffect(() => {
-    if (!images || images.length === 0) return;
-    timerRef.current = setInterval(() => {
-      setIndex((i) => (i + 1) % images.length);
-    }, interval);
+    if (!images?.length) return;
+    timerRef.current = setInterval(() => setIndex((i) => (i + 1) % images.length), interval);
     return () => clearInterval(timerRef.current);
   }, [images, interval]);
 
+  const current = images[index];
+
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6 }} className="photo-fade">
-      {images.map((src, i) => (
+    <div className="photo-fade">
+      <div className="photo-overlay" />
+      <AnimatePresence mode="wait">
         <motion.img
-          key={i}
-          src={src}
-          alt={`photo-${i}`}
-          className={i === index ? "show" : ""}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: i === index ? 1 : 0 }}
-          transition={{ duration: 1.1 }}
+          key={current}
+          src={current}
+          alt={`portfolio-${index}`}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1.03 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
           loading="lazy"
         />
-      ))}
-    </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

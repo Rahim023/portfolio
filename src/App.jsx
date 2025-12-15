@@ -8,12 +8,12 @@ import Contact from "./pages/Contact";
 
 export default function App() {
   return (
-    <div>
-      <div className="container">
+    <div className="app-shell">
+      <header className="container">
         <NavBar />
-      </div>
+      </header>
 
-      <main className="container py-5">
+      <main className="container py-4 py-lg-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
@@ -21,9 +21,9 @@ export default function App() {
         </Routes>
       </main>
 
-      <div className="container">
+      <footer className="container">
         <Footer />
-      </div>
+      </footer>
     </div>
   );
 }
