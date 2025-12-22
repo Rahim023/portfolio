@@ -9,21 +9,19 @@ import Contact from "./pages/Contact";
 export default function App() {
   return (
     <div className="app-shell">
-      <header className="container">
-        <NavBar />
-      </header>
+      <NavBar />
 
-      <main className="container py-4 py-lg-5">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+      <main className="app-main">
+        <div className="container py-4 py-lg-5">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </div>
       </main>
 
-      <footer className="container">
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 }

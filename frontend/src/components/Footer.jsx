@@ -1,42 +1,80 @@
 import React from "react";
-import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaInstagram, FaLinkedin, FaGithub, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 export default function Footer() {
+  const email = "rahimkhan231205@gmail.com";
+  const phone = "+1 437 879 6445";
+
   return (
-    <footer className="site-footer py-4">
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-        <div>
-          <div className="footer-title">Abdul Rahim</div>
-          <div className="text-muted small">
-            Full-Stack MERN • AWS • SQL/NoSQL • Toronto, Canada
+    <footer className="rt-footerPro">
+      <div className="container">
+        <div className="rt-footerTopLine" />
+
+        <div className="rt-footerGrid">
+          {/* Brand */}
+          <div>
+            <div className="rt-footerBrand">
+              <div className="rt-footerLogo">AR</div>
+              <div>
+                <div className="rt-footerName">Abdul Rahim</div>
+                <div className="rt-footerTag">Full-Stack MERN • AWS • SQL/NoSQL</div>
+              </div>
+            </div>
+
+            <p className="rt-footerAbout">
+              I build premium web apps with clean UI, real backend/database flows, and secure authentication.
+            </p>
+
+            <div className="rt-footerMeta">
+              <div className="rt-footerMetaRow"><FaEnvelope /> <span>{email}</span></div>
+              <div className="rt-footerMetaRow"><FaPhoneAlt /> <span>{phone}</span></div>
+            </div>
+          </div>
+
+          {/* Links */}
+          <div>
+            <div className="rt-footerTitle">Quick Links</div>
+            <div className="rt-footerLinks">
+              <Link to="/" className="rt-footerLink">Home</Link>
+              <Link to="/projects" className="rt-footerLink">Projects</Link>
+              <Link to="/contact" className="rt-footerLink">Contact</Link>
+              <a className="rt-footerLink" href="/Abdul_Rahim_Resume_Final_feedback.docx" download>
+                Download Resume
+              </a>
+            </div>
+          </div>
+
+          {/* CTA + Social */}
+          <div>
+            <div className="rt-footerTitle">Let’s work</div>
+            <div className="rt-footerCtaBox">
+              <div className="rt-footerCtaText">
+                Open to junior dev roles, internships, and freelance.
+              </div>
+              <Link to="/contact" className="rt-btn rt-btnPrimary rt-btnSmallFull">
+                Hire / Contact Me
+              </Link>
+              <div className="rt-footerBadge">Available now</div>
+            </div>
+
+            <div className="rt-footerSocialRow">
+              <a className="rt-socialBtn" target="_blank" rel="noreferrer" href="https://www.instagram.com/rxhim_khan/?__pwa=1">
+                <FaInstagram />
+              </a>
+              <a className="rt-socialBtn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/abdul-rahim-4806a6283/">
+                <FaLinkedin />
+              </a>
+              <a className="rt-socialBtn" target="_blank" rel="noreferrer" href="https://github.com/Rahim023">
+                <FaGithub />
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="d-flex flex-wrap gap-2 justify-content-center">
-          <Link className="footer-link" to="/projects">Projects</Link>
-          <Link className="footer-link" to="/contact">Contact</Link>
-          <a className="footer-link" href="/Abdul_Rahim_Resume_Final_feedback.docx" download>Resume</a>
-          <span className="footer-badge">Open to work</span>
+        <div className="rt-footerBottom">
+          <small>© {new Date().getFullYear()} Abdul Rahim — React • Bootstrap • Framer Motion</small>
         </div>
-
-        <div className="d-flex justify-content-center gap-2">
-          <a className="social-btn" target="_blank" rel="noreferrer" href="https://www.instagram.com/rxhim_khan/?__pwa=1">
-            <FaInstagram /> <span>Instagram</span>
-          </a>
-          <a className="social-btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/abdul-rahim-4806a6283/">
-            <FaLinkedin /> <span>LinkedIn</span>
-          </a>
-          <a className="social-btn" target="_blank" rel="noreferrer" href="https://github.com/Rahim023">
-            <FaGithub /> <span>GitHub</span>
-          </a>
-        </div>
-      </div>
-
-      <div className="text-center mt-3">
-        <small className="text-muted">
-          © {new Date().getFullYear()} Abdul Rahim — Built with React, Bootstrap & Framer Motion
-        </small>
       </div>
     </footer>
   );
