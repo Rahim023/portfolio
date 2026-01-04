@@ -1,0 +1,220 @@
+/* Projects Page Responsive Styles */
+
+.rt-page {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.rt-h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.rt-page > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.rt-chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.80);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .rt-h2 {
+    font-size: clamp(20px, 2.5vw, 28px);
+  }
+
+  .rt-page > div:first-child {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .col-12.col-lg-6 {
+    flex-basis: 100%;
+  }
+
+  .rt-projectCard {
+    padding: 16px;
+  }
+
+  .rt-projectCard h5 {
+    font-size: 16px;
+  }
+}
+
+/* Small tablets/large phones */
+@media (max-width: 768px) {
+  .rt-page > div:first-child {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .rt-page > div:first-child > div {
+    width: 100%;
+  }
+
+  .rt-page > div:first-child > div:last-child {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .rt-page > div:first-child > div:last-child .rt-btn {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rt-projectCard {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .rt-projectCard h5 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .rt-projectCard p {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .rt-chip {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .row.g-3 > [class*="col-"] {
+    padding: 6px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .rt-h2 {
+    font-size: clamp(18px, 2.2vw, 24px);
+  }
+
+  .rt-page > div:first-child {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .rt-page > div:first-child > div:last-child {
+    width: 100%;
+  }
+
+  .rt-page > div:first-child > div:last-child .rt-btn {
+    width: 100%;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .rt-projectCard {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .rt-projectCard h5 {
+    font-size: 13px;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+
+  .rt-projectCard p {
+    font-size: 12px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .d-flex.align-items-start.justify-content-between {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rt-status {
+    align-self: flex-start;
+  }
+
+  .rt-chip {
+    padding: 5px 8px;
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .d-flex.gap-2.flex-wrap.mb-3 {
+    gap: 6px;
+  }
+
+  .d-flex.gap-2.flex-wrap {
+    gap: 6px;
+  }
+
+  .rt-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+    min-height: 44px;
+  }
+
+  .rt-btn.rt-btn-sm {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  .rt-h2 {
+    font-size: clamp(16px, 2vw, 20px);
+  }
+
+  .rt-projectCard {
+    padding: 10px;
+  }
+
+  .rt-projectCard h5 {
+    font-size: 12px;
+  }
+
+  .rt-chip {
+    font-size: 9px;
+    padding: 4px 6px;
+  }
+}
+
+/* Landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+  .rt-h2 {
+    font-size: 20px;
+  }
+
+  .rt-page > div:first-child {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .rt-projectCard {
+    padding: 12px;
+  }
+
+  .row.g-3 {
+    gap: 0.5rem !important;
+  }
+}
+

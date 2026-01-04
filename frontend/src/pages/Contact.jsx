@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { FaEnvelope, FaPhone, FaInstagram, FaGithub, FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
+import "./Contact.css";
 
 export default function Contact() {
   const [status, setStatus] = useState("");

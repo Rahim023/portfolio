@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { FaGithub, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import "./Projects.css";
 
 const projects = [
   {

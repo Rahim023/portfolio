@@ -1,0 +1,127 @@
+.rt-mobileBrand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.rt-mobileBrandMain {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  background: linear-gradient(90deg, #9b5cff, #5cc1ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.rt-mobileBrandSub {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+
+/* Tweak: ensure burger stays right-aligned and brand text has breathing room */
+.rt-navToggle {
+  z-index: 30;
+}
+
+/* Slightly reduce avatar size on small screens so brand text fits */
+.rt-avatarBtn .rt-avatarImg {
+  width: 40px;
+  height: 40px;
+}
+
+/* Custom React modal styles */
+.rt-customModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rt-modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 10%, rgba(0,0,0,0.85), rgba(0,0,0,0.92));
+  backdrop-filter: blur(6px) saturate(1.05);
+}
+
+.rt-modalContent {
+  position: relative;
+  width: min(1100px, 95%);
+  max-height: 90vh;
+  background: linear-gradient(180deg, #07070a 0%, #0b0b0f 100%);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 30px 80px rgba(2,6,23,0.75), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  z-index: 10000;
+  overflow: auto;
+  transform: translateY(6px);
+  opacity: 0;
+  animation: rt-modalIn 260ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+
+@keyframes rt-modalIn {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.rt-modalClose {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 0;
+  color: #fff;
+  font-size: 1.05rem;
+  padding: 6px 8px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.rt-modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.rt-modalImageWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rt-modalImage {
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.rt-modalDetails {
+  color: #dfefff;
+}
+
+.rt-modalTitle { font-size: 1.45rem; margin: 0 0 6px 0; color: #ffffff; }
+.rt-modalTag { color: rgba(255,255,255,0.85); margin-bottom: 8px; }
+.rt-modalMeta { color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.rt-modalDesc { color: rgba(220,230,255,0.66); line-height: 1.5; }
+.rt-modalLinks a { color: #cfe8ff; opacity: 0.98; display: inline-flex; align-items: center; gap: 8px; }
+
+.rt-modalLink svg { opacity: 0.95; }
+
+@media (max-width: 720px) {
+  .rt-modalGrid { grid-template-columns: 1fr; }
+  .rt-modalImage { max-height: 50vh; }
+  .rt-modalContent { padding: 12px; }
+}

@@ -1,0 +1,215 @@
+/* Photo Carousel Styles */
+.photo-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.photo-fade {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.photo-fade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(160, 110, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(60, 160, 255, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 18px;
+}
+
+/* Navigation Dots */
+.photo-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.photo-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.photo-dot.active {
+  background: linear-gradient(135deg, rgba(160, 110, 255, 0.95), rgba(60, 160, 255, 0.95));
+  box-shadow: 0 0 12px rgba(160, 110, 255, 0.5);
+}
+
+/* Arrow Controls */
+.photo-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.photo-nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.20);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.photo-nav-prev {
+  left: 12px;
+}
+
+.photo-nav-next {
+  right: 12px;
+}
+
+/* Counter */
+.photo-counter {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+/* Tablet Responsive */
+@media (max-width: 768px) {
+  .photo-dots {
+    bottom: 10px;
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
+  .photo-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .photo-nav {
+    width: 38px;
+    height: 38px;
+  }
+
+  .photo-nav-prev {
+    left: 8px;
+  }
+
+  .photo-nav-next {
+    right: 8px;
+  }
+
+  .photo-counter {
+    font-size: 11px;
+    padding: 5px 8px;
+    top: 8px;
+    right: 8px;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .photo-dots {
+    bottom: 8px;
+    gap: 5px;
+    padding: 5px 8px;
+  }
+
+  .photo-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .photo-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .photo-nav-prev {
+    left: 6px;
+  }
+
+  .photo-nav-next {
+    right: 6px;
+  }
+
+  .photo-counter {
+    font-size: 10px;
+    padding: 4px 6px;
+    top: 6px;
+    right: 6px;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+  .photo-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .photo-nav-prev {
+    left: 4px;
+  }
+
+  .photo-nav-next {
+    right: 4px;
+  }
+
+  .photo-dots {
+    bottom: 6px;
+    gap: 4px;
+    padding: 4px 6px;
+  }
+}

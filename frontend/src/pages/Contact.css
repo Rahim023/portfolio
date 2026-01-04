@@ -1,0 +1,302 @@
+/* Contact Page Responsive Styles */
+
+.rt-page {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.rt-card {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+}
+
+.rt-card h5 {
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.rt-card p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.rt-form-label {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.rt-input {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+}
+
+.rt-input::placeholder {
+  color: rgba(255, 255, 255, 0.50) !important;
+}
+
+.rt-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(160, 110, 255, 0.18) !important;
+  border-color: rgba(160, 110, 255, 0.40) !important;
+}
+
+.rt-infoLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.86);
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.rt-infoLine svg {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .rt-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .rt-card h5 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .rt-card p {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .row.g-4 > [class*="col-"] {
+    padding: 8px;
+  }
+}
+
+/* Small tablets/large phones */
+@media (max-width: 768px) {
+  .rt-card {
+    padding: 14px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .rt-card h5 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .rt-card p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .rt-form-label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .rt-input {
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+    border-radius: 12px !important;
+  }
+
+  .rt-infoLine {
+    font-size: 13px;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .rt-infoLine svg {
+    font-size: 16px;
+  }
+
+  .row.g-4 > [class*="col-"] {
+    padding: 6px;
+  }
+
+  .row.g-3 > [class*="col-"] {
+    padding: 6px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .rt-card {
+    padding: 12px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+
+  .rt-card h5 {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .rt-card p {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .rt-form-label {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+
+  .rt-input {
+    padding: 8px 10px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    min-height: 44px;
+  }
+
+  textarea.rt-input {
+    min-height: 120px !important;
+    resize: vertical;
+  }
+
+  .rt-infoLine {
+    font-size: 12px;
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .rt-infoLine svg {
+    font-size: 14px;
+  }
+
+  .d-flex.gap-2.flex-wrap {
+    gap: 6px;
+  }
+
+  .rt-btn {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 10px !important;
+    font-size: 11px;
+    word-break: break-word;
+  }
+
+  .rt-btn.rt-btn-sm {
+    padding: 7px 9px !important;
+    font-size: 10px;
+  }
+
+  /* Form container */
+  .row.g-3 {
+    gap: 0.75rem !important;
+  }
+
+  .row.g-3 > [class*="col-"] {
+    padding: 6px;
+  }
+
+  /* Stack form columns on mobile */
+  .col-12.col-md-6 {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .mt-3 {
+    margin-top: 12px !important;
+  }
+
+  .mt-2 {
+    margin-top: 8px !important;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  .rt-card {
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .rt-card h5 {
+    font-size: 12px;
+  }
+
+  .rt-card p {
+    font-size: 11px;
+  }
+
+  .rt-form-label {
+    font-size: 10px;
+  }
+
+  .rt-input {
+    padding: 6px 8px !important;
+    font-size: 13px !important;
+  }
+
+  .rt-btn {
+    font-size: 10px;
+    padding: 6px 8px !important;
+  }
+}
+
+/* Landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+  .rt-card {
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .rt-card h5 {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .rt-card p {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  textarea.rt-input {
+    min-height: 80px !important;
+  }
+
+  .row.g-3 {
+    gap: 0.5rem !important;
+  }
+
+  .row.g-4 {
+    gap: 0.5rem !important;
+  }
+}
+
+/* Contact info section responsive */
+@media (max-width: 480px) {
+  .rt-card .rt-infoLine {
+    flex-wrap: wrap;
+  }
+
+  .rt-callout {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .rt-hr {
+    margin: 10px 0 !important;
+  }
+}
+

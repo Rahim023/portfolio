@@ -58,16 +58,24 @@ body::after{
 .rt-mutedSmall{ color: var(--muted); font-size: 12px; }
 .rt-h2{ font-weight: 900; letter-spacing: -0.02em; }
 
-/* ===== Navbar (PRO) ===== */
-.rt-navPro{
+/* ===== ENHANCED NAVBAR MOBILE RESPONSIVENESS ===== */
+.rt-navPro {
   position: sticky;
   top: 0;
   z-index: 999;
   background: rgba(5,5,5,0.58);
   border-bottom: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
 }
-.rt-navPro::before{
+
+.rt-navPro.scrolled {
+  background: rgba(5,5,5,0.75);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.rt-navPro::before {
   content:"";
   position:absolute;
   left:0; right:0; top:0;
@@ -76,50 +84,507 @@ body::after{
   opacity: 0.85;
 }
 
-.rt-brand-badge{
-  width: 42px; height: 42px;
-  display: grid; place-items: center;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--gradA), var(--gradB));
-  color: #0a0a0a;
-  font-weight: 950;
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.55),
-    0 0 0 1px rgba(255,255,255,0.14) inset;
+/* Mobile Toggle Button */
+.rt-navToggle {
+  padding: 8px 12px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.2s ease;
 }
-.rt-brand-name{ font-weight: 800; color: var(--text); }
-.rt-brand-sub{ color: var(--muted); }
 
-.rt-navlinkPro{
-  display:inline-flex;
-  align-items:center;
+.rt-navToggle:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Mobile Navbar Collapse Styles */
+.navbar-collapse {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 12px;
+}
+
+/* Brand Section Mobile */
+.rt-brandPro {
+  text-decoration: none !important;
+}
+
+.rt-brand-name {
+  font-weight: 800;
+  color: var(--text);
+  font-size: clamp(14px, 3vw, 16px);
+}
+
+.rt-brand-sub {
+  color: var(--muted);
+  font-size: clamp(11px, 2.5vw, 13px);
+  white-space: nowrap;
+}
+
+/* Avatar Button */
+.rt-avatarBtn {
+  background: none !important;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+}
+
+.rt-avatarBtn:hover {
+  border-color: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.rt-avatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Status Pill */
+.rt-navStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Nav Links Mobile */
+.navbar-nav {
+  gap: 6px;
+}
+
+.rt-navlinkPro {
+  display: inline-flex;
+  align-items: center;
   padding: 9px 14px;
   border-radius: 999px;
-  text-decoration:none;
-  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.78);
   border: 1px solid transparent;
-  transition: 0.15s ease;
-}
-.rt-navlinkPro:hover{
-  color: rgba(255,255,255,0.95);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.12);
-  transform: translateY(-1px);
-}
-.rt-navlinkPro.active{
-  color: rgba(255,255,255,0.96);
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.14);
-  box-shadow: 0 0 0 1px rgba(160,110,255,0.18) inset;
+  transition: all 0.15s ease;
+  font-size: clamp(13px, 2.5vw, 15px);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-.rt-navbtnPro{
+.rt-navlinkPro:hover {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.rt-navlinkPro.active {
+  color: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 1px rgba(160, 110, 255, 0.18) inset;
+}
+
+/* Nav Icon Links */
+.rt-navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-size: 18px;
+}
+
+.rt-navIcon:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.96);
+  transform: translateY(-2px);
+}
+
+/* Nav Buttons */
+.rt-navbtn {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: clamp(12px, 2.5vw, 14px);
+  min-height: 44px;
+}
+
+.rt-navbtn:hover {
+  transform: translateY(-2px);
+}
+
+.rt-navbtnPro {
   padding: 10px 14px !important;
   border-radius: 14px !important;
   font-weight: 900 !important;
   letter-spacing: 0.2px;
   box-shadow: 0 10px 26px rgba(0,0,0,0.40);
 }
+
+.rt-navbtn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.rt-navbtn-ghost:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.rt-navbtn-primary {
+  background: linear-gradient(135deg, var(--gradA), var(--gradB));
+  color: #0a0a0a;
+}
+
+.rt-navbtn-primary:hover {
+  box-shadow: 0 0 24px rgba(160, 110, 255, 0.35);
+}
+
+/* Modal Styles */
+.rt-modalGlass {
+  background: rgba(20, 20, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+}
+
+.rt-modalHeader {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rt-modalTitle {
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 18px;
+}
+
+.rt-modalTag {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(160, 110, 255, 0.15);
+  color: rgba(160, 110, 255, 0.95);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.rt-modalClose {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.rt-modalClose:hover {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.rt-modalBody {
+  padding: 24px;
+}
+
+.rt-modalAvatarWrap {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  margin: 0 auto;
+}
+
+.rt-modalAvatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rt-modalMeta {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rt-modalDesc {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  font-size: 14px;
+  text-align: center;
+}
+
+.rt-modalDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 16px 0;
+}
+
+.rt-modalLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rt-modalLinks a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.rt-modalLinks a:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  transform: translateX(4px);
+}
+
+/* ===== TABLET RESPONSIVE (768px - 1024px) ===== */
+@media (max-width: 1024px) {
+  .rt-navPro {
+    padding: 0.4rem 0;
+  }
+
+  .navbar-nav {
+    gap: 4px;
+  }
+
+  .rt-navlinkPro {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .navbar-collapse {
+    padding-top: 10px;
+  }
+}
+
+/* ===== MOBILE RESPONSIVE (< 768px) ===== */
+@media (max-width: 768px) {
+  .rt-navPro {
+    padding: 0.4rem 0;
+  }
+
+  .container-fluid {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .rt-brand-name {
+    font-size: 14px;
+  }
+
+  .rt-brand-sub {
+    font-size: 11px;
+  }
+
+  .navbar-collapse {
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  .navbar-nav {
+    gap: 6px;
+    flex-direction: column;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .rt-navlinkPro {
+    width: 100%;
+    padding: 10px 14px;
+    justify-content: center;
+  }
+
+  .nav-item.ms-lg-2 {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rt-navbtn {
+    width: 100%;
+  }
+
+  .rt-navIcon {
+    width: 100%;
+    padding: 10px 12px;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .rt-modalAvatarWrap {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ===== SMALL MOBILE (< 480px) ===== */
+@media (max-width: 480px) {
+  .rt-navPro {
+    padding: 0.3rem 0;
+  }
+
+  .container-fluid {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .d-none.d-sm-block {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .rt-brand-name {
+    font-size: 12px;
+  }
+
+  .rt-brand-sub {
+    font-size: 10px;
+  }
+
+  .rt-avatarBtn {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .rt-navToggle {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 6px 8px !important;
+  }
+
+  .navbar-collapse {
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  .navbar-nav {
+    gap: 4px;
+  }
+
+  .rt-navlinkPro {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .rt-navbtn {
+    font-size: 12px;
+    padding: 8px 12px;
+    min-height: 40px;
+  }
+
+  .rt-navIcon {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .rt-modalBody {
+    padding: 16px;
+  }
+
+  .rt-modalAvatarWrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .rt-modalTitle {
+    font-size: 16px;
+  }
+
+  .rt-modalDesc {
+    font-size: 13px;
+  }
+}
+
+/* ===== EXTRA SMALL MOBILE (< 360px) ===== */
+@media (max-width: 360px) {
+  .rt-brand-name {
+    font-size: 11px;
+  }
+
+  .rt-brand-sub {
+    display: none;
+  }
+
+  .d-none.d-sm-block {
+    flex: 0 0 auto;
+  }
+
+  .navbar-nav {
+    gap: 3px;
+  }
+
+  .rt-navlinkPro {
+    padding: 7px 10px;
+    font-size: 11px;
+    min-height: 36px;
+  }
+
+  .rt-navbtn {
+    font-size: 11px;
+    padding: 7px 10px;
+    min-height: 36px;
+  }
+}
+
 
 /* ===== Buttons ===== */
 .rt-btn{
@@ -150,7 +615,7 @@ body::after{
 }
 
 /* ===== Home background layers ===== */
-.rt-home{ position: relative; min-height: 1px; }
+.rt-home{ position: relative; min-height: auto; width: 100%; }
 .rt-bg{ position:absolute; inset:0; z-index:-1; overflow:hidden; }
 .rt-radial{
   position:absolute;
@@ -808,4 +1273,649 @@ body::after{
 .rt-modalFooter{
   padding: 12px 16px 14px;
   border-top: 1px solid rgba(255,255,255,0.10);
+}
+/* ===== COMPREHENSIVE RESPONSIVE DESIGN ===== */
+
+/* Tablet (992px and below) */
+@media (max-width: 992px){
+  .rt-shell{
+    padding: 16px 14px 10px;
+  }
+  
+  .rt-title{
+    font-size: clamp(28px, 3.5vw, 42px);
+  }
+  
+  .rt-cardPad{
+    padding: 18px !important;
+  }
+  
+  .rt-cardPadSlim{
+    padding: 14px !important;
+  }
+  
+  .rt-lead{
+    max-width: 45ch;
+  }
+  
+  .rt-featureFrame{
+    height: 240px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 240px;
+  }
+  
+  .rt-stat{
+    padding: 12px;
+  }
+  
+  .rt-footerGrid{
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .rt-skillSearch input{
+    font-size: 14px;
+  }
+}
+
+/* Small tablets/large phones (768px and below) */
+@media (max-width: 768px){
+  html{
+    font-size: 15px;
+  }
+  
+  body{
+    font-size: 14px;
+  }
+  
+  .rt-shell{
+    padding: 14px 12px 8px;
+  }
+  
+  .rt-navPro{
+    margin: 8px 0;
+  }
+  
+  .rt-title{
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.1;
+  }
+  
+  .rt-kicker{
+    font-size: 12px;
+  }
+  
+  .rt-lead{
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 40ch;
+  }
+  
+  .rt-btn{
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .rt-btn-sm{
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  
+  .rt-cardPad{
+    padding: 14px !important;
+  }
+  
+  .rt-cardPadSlim{
+    padding: 12px !important;
+  }
+  
+  .rt-stat{
+    padding: 10px;
+    border-radius: 14px;
+  }
+  
+  .rt-stat-kpi{
+    font-size: 16px;
+  }
+  
+  .rt-stat-label{
+    font-size: 11px;
+  }
+  
+  .rt-featureFrame{
+    height: 200px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 200px;
+  }
+  
+  .rt-miniCard{
+    padding: 12px;
+    border-radius: 14px;
+  }
+  
+  .rt-miniTag{
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+  
+  .rt-miniTitle{
+    font-size: 13px;
+  }
+  
+  .rt-miniMeta{
+    font-size: 11px;
+  }
+  
+  .rt-chip{
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  
+  .rt-section-title{
+    font-size: 16px;
+  }
+  
+  .rt-section-sub{
+    font-size: 11px;
+  }
+  
+  .rt-mapWrap{
+    border-radius: 14px;
+  }
+  
+  .rt-mapWrap iframe{
+    height: 180px !important;
+  }
+  
+  .rt-projectCard{
+    padding: 14px;
+    border-radius: 16px;
+  }
+  
+  .rt-projectCard h5{
+    font-size: 15px;
+  }
+  
+  .rt-input{
+    font-size: 14px !important;
+  }
+  
+  .rt-form-label{
+    font-size: 13px;
+  }
+  
+  .rt-footerAbout{
+    max-width: 50ch;
+  }
+  
+  .rt-footerMetaRow{
+    font-size: 12px;
+  }
+  
+  .rt-navlinkPro{
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .rt-availability{
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  .rt-iconbtn{
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* Mobile phones (480px and below) */
+@media (max-width: 480px){
+  html{
+    font-size: 14px;
+  }
+  
+  body{
+    font-size: 13px;
+  }
+  
+  .rt-shell{
+    padding: 12px 10px 6px;
+  }
+  
+  .rt-navPro{
+    margin: 4px 0;
+  }
+  
+  .rt-navbtnPro{
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+  
+  .rt-title{
+    font-size: clamp(20px, 2.5vw, 28px);
+    line-height: 1.15;
+  }
+  
+  .rt-kicker{
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  
+  .rt-lead{
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 100%;
+  }
+  
+  .rt-glow{
+    font-size: 20px;
+  }
+  
+  .rt-btn{
+    padding: 9px 11px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+  
+  .rt-btn-sm{
+    padding: 7px 9px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+  
+  .rt-cardPad{
+    padding: 12px !important;
+  }
+  
+  .rt-cardPadSlim{
+    padding: 10px !important;
+  }
+  
+  .rt-stat{
+    padding: 8px;
+    border-radius: 12px;
+  }
+  
+  .rt-stat-kpi{
+    font-size: 14px;
+  }
+  
+  .rt-stat-label{
+    font-size: 10px;
+  }
+  
+  .rt-featureFrame{
+    height: 160px;
+    border-radius: 14px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 160px;
+  }
+  
+  .rt-miniCard{
+    padding: 10px;
+    border-radius: 12px;
+  }
+  
+  .rt-miniTag{
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+  
+  .rt-miniTitle{
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .rt-miniMeta{
+    font-size: 10px;
+  }
+  
+  .rt-chip{
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  
+  .rt-marquee{
+    padding: 8px;
+    border-radius: 14px;
+  }
+  
+  .rt-section-title{
+    font-size: 14px;
+  }
+  
+  .rt-section-sub{
+    font-size: 10px;
+  }
+  
+  .rt-pill{
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+  
+  .rt-divider{
+    margin: 12px 0 10px;
+  }
+  
+  .rt-mapWrap{
+    border-radius: 12px;
+  }
+  
+  .rt-mapWrap iframe{
+    height: 150px !important;
+  }
+  
+  .rt-projectCard{
+    padding: 12px;
+    border-radius: 14px;
+  }
+  
+  .rt-projectCard h5{
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .rt-status{
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+  
+  .rt-input{
+    font-size: 14px !important;
+    padding: 8px 10px !important;
+  }
+  
+  .rt-form-label{
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .rt-infoLine{
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .rt-infoLine svg{
+    font-size: 18px;
+  }
+  
+  .rt-callout{
+    padding: 10px;
+    border-radius: 12px;
+  }
+  
+  .rt-footerPro{
+    margin-top: 20px;
+  }
+  
+  .rt-footerGrid{
+    gap: 12px;
+  }
+  
+  .rt-footerBrand{
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .rt-footerLogo{
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  
+  .rt-footerName{
+    font-size: 14px;
+  }
+  
+  .rt-footerTag{
+    font-size: 11px;
+  }
+  
+  .rt-footerAbout{
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    max-width: 100%;
+  }
+  
+  .rt-footerMetaRow{
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  
+  .rt-footerTitle{
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .rt-footerLinks{
+    gap: 8px;
+  }
+  
+  .rt-footerLink{
+    padding: 8px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+  
+  .rt-footerCtaBox{
+    padding: 10px;
+    border-radius: 14px;
+  }
+  
+  .rt-footerCtaText{
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .rt-footerBadge{
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+  
+  .rt-footerSocialRow{
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .rt-socialBtn{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  
+  .rt-navlinkPro{
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .rt-navlinkPill{
+    padding: 6px 10px;
+  }
+  
+  .rt-availability{
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .rt-dot{
+    width: 6px;
+    height: 6px;
+  }
+  
+  .rt-iconbtn{
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .rt-brand-badge{
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+  
+  .rt-avatarBtn{
+    width: 36px;
+    height: 36px;
+  }
+  
+  .rt-avatarImg{
+    width: 36px;
+    height: 36px;
+  }
+  
+  .rt-navIcon{
+    height: 36px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+  
+  .rt-skillSearch{
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  .rt-skillSearch input{
+    font-size: 12px;
+    padding: 8px 10px 8px 28px;
+  }
+  
+  .rt-homebar{
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .rt-homebar-left{
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  
+  .rt-homebar-right{
+    gap: 6px;
+  }
+}
+
+/* Extra small phones (360px and below) */
+@media (max-width: 360px){
+  .rt-shell{
+    padding: 10px 8px 4px;
+  }
+  
+  .rt-title{
+    font-size: clamp(18px, 2.2vw, 24px);
+  }
+  
+  .rt-btn{
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+  
+  .rt-cardPad{
+    padding: 10px !important;
+  }
+  
+  .rt-featureFrame{
+    height: 140px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 140px;
+  }
+  
+  .rt-miniCard{
+    padding: 8px;
+  }
+  
+  .rt-chip{
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+}
+
+/* Landscape orientation - mobile devices */
+@media (max-height: 500px) and (orientation: landscape){
+  .rt-shell{
+    padding: 10px 12px 6px;
+  }
+  
+  .rt-title{
+    font-size: 24px;
+  }
+  
+  .rt-featureFrame{
+    height: 180px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 180px;
+  }
+  
+  .rt-lead{
+    font-size: 12px;
+  }
+  
+  .row.g-4 > [class*="col-"]{
+    padding: 6px;
+  }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) and (pointer: coarse){
+  .rt-btn{
+    padding: 12px 14px;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .rt-iconbtn{
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .rt-input{
+    min-height: 44px;
+    font-size: 16px !important;
+  }
+  
+  button, a{
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* High DPI screens (retina) */
+@media (min-width: 1920px){
+  .rt-shell{
+    padding: 24px 20px 16px;
+  }
+  
+  .rt-title{
+    font-size: clamp(48px, 4.5vw, 64px);
+  }
+  
+  .rt-cardPad{
+    padding: 32px !important;
+  }
+  
+  .rt-featureFrame{
+    height: 380px;
+  }
+  
+  .rt-featureFrame img,
+  .rt-featureFrame .carousel-item img{
+    height: 380px;
+  }
 }
