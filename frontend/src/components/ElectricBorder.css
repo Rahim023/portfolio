@@ -1,26 +1,157 @@
 .electric-border {
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 3px;
-  background: linear-gradient(90deg, #00f7ff, #0077ff, #00f7ff);
+  background: linear-gradient(135deg, rgba(160,110,255,0.8), rgba(60,160,255,0.8), rgba(160,110,255,0.8));
   background-size: 300% 300%;
-  animation: neonFlow 2.5s linear infinite;
+  animation: electricFlow 3s linear infinite;
+  box-shadow: 
+    0 0 20px rgba(160,110,255,0.4),
+    0 0 40px rgba(60,160,255,0.3),
+    inset 0 0 20px rgba(160,110,255,0.1);
+  transition: all 0.3s ease;
 }
 
-@keyframes neonFlow {
+.electric-border.hovering {
+  box-shadow: 
+    0 0 30px rgba(160,110,255,0.6),
+    0 0 60px rgba(60,160,255,0.4),
+    0 0 80px rgba(160,110,255,0.25),
+    inset 0 0 20px rgba(160,110,255,0.15);
+  padding: 4px;
+}
+
+@keyframes electricFlow {
   0% {
     background-position: 0% 50%;
+    filter: brightness(1);
   }
   50% {
     background-position: 100% 50%;
+    filter: brightness(1.1);
   }
   100% {
     background-position: 0% 50%;
+    filter: brightness(1);
+  }
+}
+
+/* Intensity Levels */
+.electric-light {
+  opacity: 0.7;
+}
+
+.electric-medium {
+  opacity: 1;
+}
+
+.electric-strong {
+  box-shadow: 
+    0 0 40px rgba(160,110,255,0.6),
+    0 0 80px rgba(60,160,255,0.5),
+    inset 0 0 30px rgba(160,110,255,0.2) !important;
+  animation: electricFlowStrong 2s linear infinite;
+}
+
+@keyframes electricFlowStrong {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1.1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.2);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1.1);
   }
 }
 
 .electric-border > * {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  background: rgba(5, 5, 5, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.electric-border:hover > * {
+  background: rgba(5, 5, 5, 0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .electric-border {
+    border-radius: 18px;
+    padding: 2.5px;
+  }
+
+  .electric-border > * {
+    border-radius: 15px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .electric-border {
+    border-radius: 16px;
+    padding: 2px;
+    box-shadow: 
+      0 0 15px rgba(160,110,255,0.35),
+      0 0 30px rgba(60,160,255,0.25),
+      inset 0 0 15px rgba(160,110,255,0.08);
+  }
+
+  .electric-border.hovering {
+    box-shadow: 
+      0 0 20px rgba(160,110,255,0.5),
+      0 0 40px rgba(60,160,255,0.35),
+      0 0 60px rgba(160,110,255,0.2),
+      inset 0 0 15px rgba(160,110,255,0.12);
+    padding: 3px;
+  }
+
+  .electric-border > * {
+    border-radius: 14px;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .electric-border {
+    border-radius: 14px;
+    padding: 2px;
+    box-shadow: 
+      0 0 12px rgba(160,110,255,0.3),
+      0 0 24px rgba(60,160,255,0.2),
+      inset 0 0 12px rgba(160,110,255,0.06);
+  }
+
+  .electric-border.hovering {
+    box-shadow: 
+      0 0 16px rgba(160,110,255,0.45),
+      0 0 32px rgba(60,160,255,0.3),
+      0 0 50px rgba(160,110,255,0.18),
+      inset 0 0 12px rgba(160,110,255,0.10);
+  }
+
+  .electric-border > * {
+    border-radius: 12px;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .electric-border {
+    border-radius: 12px;
+    padding: 1.5px;
+  }
+
+  .electric-border > * {
+    border-radius: 10px;
+    padding: 12px;
+  }
 }

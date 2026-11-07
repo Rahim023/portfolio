@@ -1,234 +1,106 @@
-import React, { useId } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { FiMenu } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaCheckCircle, FaTimes } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { Hand } from "lucide-react";
+import "./NavBar.css";
 
 export default function NavBar() {
-  const item = { hidden: { opacity: 0, y: -8 }, show: { opacity: 1, y: 0 } };
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const location = useLocation();
 
-  // ✅ put your image here (public folder)
-  const profileImg = "/images/profile.png"; // change if needed
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  // ✅ unique modal id so it never conflicts
-  const modalId = useId().replace(/:/g, "");
+  useEffect(() => setMobileOpen(false), [location]);
+
+  const goToSection = (id) => {
+    setMobileOpen(false);
+    if (location.pathname !== "/") {
+      window.location.assign(`/#${id}`);
+      return;
+    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <>
-      <motion.nav
-        initial="hidden"
-        animate="show"
-        variants={{ show: { transition: { staggerChildren: 0.06 } } }}
-        className="navbar navbar-expand-lg navbar-dark rt-navPro"
-      >
-        <div className="container-fluid px-2 px-md-3">
-          {/* Brand */}
-          <motion.div variants={item} className="d-flex align-items-center gap-3">
-            <Link
-              className="navbar-brand d-flex align-items-center gap-2 rt-brandPro"
-              to="/"
+    <header className={`floating-header ${scrolled ? "scrolled" : ""}`}>
+      <nav className="floating-nav" aria-label="Primary navigation">
+        <div className="nav-profile-area">
+          <button className="nav-monogram" type="button" onClick={() => setProfileOpen(true)} aria-label="Open Abdul Rahim profile">
+            <img src="https://res.cloudinary.com/divypkla0/image/upload/v1794085279/AbdulRahim_pp_yn5t5j.jpg" alt="" />
+            <span className="nav-monogram-status" aria-hidden="true" />
+            <motion.span
+              className="nav-profile-click"
+              aria-hidden="true"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: [0, 1, 1, 0], y: [4, 0, 0, -2] }}
+              transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.1, times: [0, 0.18, 0.72, 1] }}
             >
-              {/* ✅ Profile image button (opens modal) */}
-              <button
-                type="button"
-                className="rt-avatarBtn"
-                data-bs-toggle="modal"
-                data-bs-target={`#${modalId}`}
-                aria-label="Open profile preview"
-              >
-                <img
-                  src={profileImg}
-                  alt="Abdul Rahim"
-                  className="rt-avatarImg"
-                  onError={(e) => {
-                    // fallback if image missing
-                    e.currentTarget.src =
-                      "https://via.placeholder.com/120x120.png?text=AR";
-                  }}
-                />
-              </button>
-
-              <div className="d-none d-sm-block" style={{ lineHeight: 1 }}>
-                <div className="rt-brand-name">Abdul Rahim</div>
-                <small className="rt-brand-sub">
-                  Full-Stack (MERN) • AWS • SQL/NoSQL
-                </small>
-              </div>
-            </Link>
-
-            {/* Status pill */}
-            <div className="d-none d-md-flex rt-navStatus">
-              <FaCheckCircle className="me-2" />
-              Available
-            </div>
-          </motion.div>
-
-          {/* Mobile toggle */}
-          <button
-            className="navbar-toggler border-0 text-white"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navMenu"
-            aria-controls="navMenu"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <FiMenu size={22} />
+              <Hand size={11} strokeWidth={2.25} />
+            </motion.span>
           </button>
-
-          {/* Nav items */}
-          <motion.div variants={item} className="collapse navbar-collapse" id="navMenu">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
-              <li className="nav-item">
-                <NavLink className="rt-navlinkPro rt-navlinkPill" to="/" end>
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="rt-navlinkPro rt-navlinkPill" to="/projects">
-                  Projects
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="rt-navlinkPro rt-navlinkPill" to="/contact">
-                  Contact
-                </NavLink>
-              </li>
-
-              {/* Social icons (desktop) */}
-              <li className="nav-item d-none d-lg-flex align-items-center gap-2 ms-lg-2">
-                <a
-                  className="rt-navIcon"
-                  href="https://github.com/Rahim023"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </a>
-                <a
-                  className="rt-navIcon"
-                  href="https://www.linkedin.com/in/abdul-rahim-4806a6283/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin />
-                </a>
-              </li>
-
-              {/* CTA buttons */}
-              <li className="nav-item ms-lg-2 d-flex gap-2 mt-2 mt-lg-0">
-                <a
-                  className="rt-navbtn rt-navbtn-ghost rt-navbtnPro"
-                  href="/Abdul_Rahim_Resume_Final_feedback.docx"
-                  download
-                >
-                  Download Resume
-                </a>
-
-                <Link to="/contact" className="rt-navbtn rt-navbtn-primary rt-navbtnPro">
-                  Hire Me
-                </Link>
-              </li>
-
-              {/* Social icons (mobile) */}
-              <li className="nav-item d-lg-none mt-3">
-                <div className="d-flex gap-2">
-                  <a
-                    className="rt-navIcon w-100 justify-content-center"
-                    href="https://github.com/Rahim023"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaGithub className="me-2" /> GitHub
-                  </a>
-                  <a
-                    className="rt-navIcon w-100 justify-content-center"
-                    href="https://www.linkedin.com/in/abdul-rahim-4806a6283/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaLinkedin className="me-2" /> LinkedIn
-                  </a>
-                </div>
-              </li>
-            </ul>
+          <motion.button
+            className="nav-profile-prompt"
+            type="button"
+            onClick={() => setProfileOpen(true)}
+            initial={{ opacity: 0, x: -4 }}
+            animate={{ opacity: [0, 0.72, 0.72, 0], x: [-4, 0, 0, 2] }}
+            transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.16, 0.72, 1] }}
+          >
+            Meet Abdul <span aria-hidden="true">↗</span>
+          </motion.button>
+        </div>
+        <div className="desktop-nav-links">
+          <button type="button" onClick={() => goToSection("about")}>About</button>
+          <button type="button" onClick={() => goToSection("skills")}>Skills</button>
+          <NavLink to="/projects" className={({ isActive }) => isActive ? "active" : ""}>Work</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>Contact</NavLink>
+        </div>
+        <div className="nav-actions">
+          <a className="nav-icon-link" href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
+          <a className="nav-resume" href="/abdulRahim_Resume.pdf" download>Resume <FiArrowUpRight /></a>
+          <button className="nav-menu-button" type="button" onClick={() => setMobileOpen((open) => !open)} aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label={mobileOpen ? "Close navigation" : "Open navigation"}>
+            {mobileOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+      </nav>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div id="mobile-navigation" className="mobile-navigation" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
+            <button type="button" onClick={() => goToSection("about")}>About</button>
+            <button type="button" onClick={() => goToSection("skills")}>Skills</button>
+            <Link to="/projects">Work</Link>
+            <Link to="/contact">Contact</Link>
+            <a href="/abdulRahim_Resume.pdf" download>Download resume <FiArrowUpRight /></a>
+            <div><a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a><a href="https://www.linkedin.com/in/abdul-rahim-4806a6283/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a></div>
           </motion.div>
-        </div>
-      </motion.nav>
-
-      {/* ✅ Bootstrap Modal (Profile popup) */}
-      <div
-        className="modal fade"
-        id={modalId}
-        tabIndex="-1"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content rt-modalGlass">
-            <div className="rt-modalHeader">
-              <div className="d-flex align-items-center gap-2">
-                <div className="rt-modalTitle">Abdul Rahim</div>
-                <span className="rt-modalTag">Profile</span>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {profileOpen && (
+          <motion.div className="profile-modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setProfileOpen(false)}>
+            <motion.div className="profile-modal" role="dialog" aria-modal="true" aria-label="Abdul Rahim profile" initial={{ opacity: 0, y: 18, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: 0.96 }} transition={{ type: "spring", stiffness: 260, damping: 24 }} onClick={(event) => event.stopPropagation()}>
+              <button className="profile-modal-close" type="button" onClick={() => setProfileOpen(false)} aria-label="Close profile"><FiX /></button>
+              <div className="profile-modal-image"><img src="https://res.cloudinary.com/divypkla0/image/upload/v1794085279/AbdulRahim_pp_yn5t5j.jpg" alt="Abdul Rahim" /></div>
+              <div className="profile-modal-copy">
+                <span><i /> Available for opportunities</span>
+                <h2>Abdul Rahim</h2>
+                <p>Software Developer · React & Full Stack · Toronto</p>
+                <div><small>Education</small><strong>Computer Programming Diploma</strong><em>Sault College · 2025</em></div>
+                <a href="mailto:rahimkhan231205@gmail.com">Start a conversation <FiArrowUpRight /></a>
               </div>
-
-              <button
-                type="button"
-                className="rt-modalClose"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <FaTimes />
-              </button>
-            </div>
-
-            <div className="rt-modalBody">
-              <div className="rt-modalAvatarWrap">
-                <img
-                  src={profileImg}
-                  alt="Abdul Rahim Profile"
-                  className="rt-modalAvatar"
-                  onError={(e) => {
-                    e.currentTarget.src =
-                      "https://via.placeholder.com/400x400.png?text=AR";
-                  }}
-                />
-              </div>
-
-              <div className="rt-modalSub">
-                Full-Stack (MERN) • AWS • SQL/NoSQL
-              </div>
-
-              <div className="d-flex flex-wrap gap-2 mt-3">
-                <a
-                  className="rt-btn rt-btn-soft rt-btn-sm"
-                  href="https://github.com/Rahim023"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
-                  className="rt-btn rt-btn-soft rt-btn-sm"
-                  href="https://www.linkedin.com/in/abdul-rahim-4806a6283/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <Link className="rt-btn rt-btn-primary rt-btn-sm" to="/contact" data-bs-dismiss="modal">
-                  Contact
-                </Link>
-              </div>
-            </div>
-
-            <div className="rt-modalFooter">
-              <span className="rt-mutedSmall">Tip: Replace /images/profile.jpg with your real photo.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

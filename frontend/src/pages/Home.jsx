@@ -1,366 +1,251 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import PhotoCarousel from "../components/PhotoCarousel";
+import { FaArrowDown, FaArrowRight, FaGithub, FaJava, FaLinkedin, FaCloud } from "react-icons/fa";
 import {
-  FaArrowRight,
-  FaGithub,
-  FaLinkedin,
-  FaBolt,
-  FaDatabase,
-  FaCloud,
-  FaCheckCircle,
-  FaMapMarkerAlt,
-  FaSearch,
-} from "react-icons/fa";
+  SiBootstrap, SiCss3, SiExpress, SiFramer, SiGit, SiGithub,
+  SiHtml5, SiJavascript, SiMicrosoftsqlserver, SiMongodb, SiMysql, SiNetlify,
+  SiMongoose, SiNodedotjs, SiOpenai, SiPostman, SiReact, SiSpringboot, SiTailwindcss, SiVite
+} from "react-icons/si";
+import { Braces, Database, Terminal, Wifi, Sparkles, Layers3, Server, Wrench, ArrowUpRight } from "lucide-react";
+import { projects } from "../data/projects";
+import "./Home.css";
+
+const frontendSkills = ["React", "JavaScript", "Tailwind CSS", "Bootstrap", "Framer Motion", "React Components", "HTML", "CSS", "Lucide Icons"];
+const backendSkills = ["Node.js", "Express.js", "Mongoose", "REST APIs", "Nodemailer", "SMTP", "Cloudinary", "Java", "Spring Boot", "Admin Dashboards"];
+const databaseSkills = ["MongoDB", "MySQL", "SQL Server", "SQL", "Excel", "Power Query", "Power Pivot", "Data Modeling"];
+const toolSkills = ["Git", "GitHub", "VS Code", "Postman", "Vite", "Netlify", "GitHub Copilot", "Claude", "ChatGPT", "AI-Assisted Debugging"];
+
+const skillIcons = {
+  "React": SiReact, "JavaScript": SiJavascript, "Tailwind CSS": SiTailwindcss,
+  "Bootstrap": SiBootstrap, "Framer Motion": SiFramer, "HTML": SiHtml5, "CSS": SiCss3,
+  "Node.js": SiNodedotjs, "Express.js": SiExpress, "Mongoose": SiMongoose,
+  "Cloudinary": FaCloud, "Java": FaJava, "Spring Boot": SiSpringboot,
+  "MongoDB": SiMongodb, "MySQL": SiMysql, "SQL Server": SiMicrosoftsqlserver,
+  "Git": SiGit, "GitHub": SiGithub, "Postman": SiPostman, "Vite": SiVite,
+  "Netlify": SiNetlify, "GitHub Copilot": SiGithub, "ChatGPT": SiOpenai,
+  "SQL": Database, "React Components": SiReact, "Lucide Icons": Sparkles,
+  "REST APIs": Braces, "Nodemailer": Terminal, "SMTP": Terminal,
+  "Admin Dashboards": Server, "Excel": Database, "Power Query": Database,
+  "Power Pivot": Database, "Data Modeling": Database, "VS Code": Braces,
+  "Claude": Sparkles, "AI-Assisted Debugging": Wrench
+};
+
+function SkillBadge({ skill }) {
+  const Icon = skillIcons[skill] || Braces;
+  return <b><Icon aria-hidden="true" /><span>{skill}</span></b>;
+}
+
+function SkillMarquee({ skills, reverse = false }) {
+  return (
+    <div className={`skill-marquee ${reverse ? "reverse" : ""}`} aria-label="Technology list">
+      <div className="skill-marquee-track">
+        {[0, 1].map((copy) => (
+          <div className="skill-marquee-group" key={copy} aria-hidden={copy === 1 ? "true" : undefined}>
+            {skills.map((skill) => <SkillBadge skill={skill} key={`${copy}-${skill}`} />)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
-  const photos = useMemo(
-    () => [
-      "/images/Screenshot 2025-10-15 100129.png",
-      "/images/Screenshot 2025-10-12 153637.png",
-      "/images/mypic1.png",
-      "/images/WhatsApp Image 2025-12-24 at 7.39.53 PM.png",
-      "/images/rahim2.png",
-      "/images/rahim3.png",
-    ],
-    []
-  );
+  const visualRef = useRef(null);
+  const projectHoverTimer = useRef(null);
+  const [projectIndex, setProjectIndex] = useState(0);
+  const [activeSkill, setActiveSkill] = useState(0);
+  const visibleProject = projects[projectIndex % projects.length] || projects[0];
 
-  const skills = useMemo(
-    () => [
-      "React",
-      "Node/Express",
-      "MongoDB",
-      "MySQL/SQL",
-      "JWT Auth",
-      "AWS S3",
-      "REST APIs",
-      "Bootstrap",
-      "Framer Motion",
-      "Three.js",
-    ],
-    []
-  );
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSkill((current) => (current + 1) % 4);
+    }, 2600);
+    return () => window.clearInterval(timer);
+  }, []);
 
-  const highlights = useMemo(
-    () => [
-      {
-        icon: <FaBolt />,
-        title: "Fast UI + smooth motion",
-        desc: "Modern layout, micro-interactions, and premium transitions.",
-      },
-      {
-        icon: <FaDatabase />,
-        title: "Real backend + DB flows",
-        desc: "JWT auth, protected routes, CRUD, roles, and data modeling.",
-      },
-      {
-        icon: <FaCloud />,
-        title: "Cloud-ready builds",
-        desc: "S3 assets, deploy-friendly setups, and scalable patterns.",
-      },
-    ],
-    []
-  );
+  useEffect(() => () => window.clearTimeout(projectHoverTimer.current), []);
 
-  const quickProjects = useMemo(
-    () => [
-      { tag: "E-Commerce", title: "Royal Threads", meta: "MERN • S3 • Auth" },
-      { tag: "Forum", title: "Discussion Board", meta: "MERN • JWT • CRUD" },
-      { tag: "UI", title: "Advanced Portfolio", meta: "React • Motion • Clean UX" },
-    ],
-    []
-  );
+  const selectProjectOnHover = (index) => {
+    window.clearTimeout(projectHoverTimer.current);
+    projectHoverTimer.current = window.setTimeout(() => {
+      setProjectIndex((current) => current === index ? current : index);
+    }, 60);
+  };
 
-  // ✅ HR-friendly skills search
-  const [skillQuery, setSkillQuery] = useState("");
-  const q = skillQuery.trim().toLowerCase();
-  const filteredSkills = useMemo(() => {
-    if (!q) return skills;
-    return skills.filter((s) => s.toLowerCase().includes(q));
-  }, [skills, q]);
+  const selectProjectAndView = (index) => {
+    window.clearTimeout(projectHoverTimer.current);
+    setProjectIndex(index);
+    document.getElementById("projects")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    const node = visualRef.current;
+    if (!node || !window.matchMedia("(pointer: fine)").matches) return undefined;
+    const move = (event) => {
+      const bounds = node.getBoundingClientRect();
+      if (!bounds) return;
+      node.style.setProperty("--mouse-x", `${event.clientX - bounds.left}px`);
+      node.style.setProperty("--mouse-y", `${event.clientY - bounds.top}px`);
+      node.style.setProperty("--tilt-x", `${((event.clientY - bounds.top) / bounds.height - 0.5) * -5}deg`);
+      node.style.setProperty("--tilt-y", `${((event.clientX - bounds.left) / bounds.width - 0.5) * 5}deg`);
+    };
+    node.addEventListener("mousemove", move);
+    return () => node.removeEventListener("mousemove", move);
+  }, []);
 
   return (
-    <div className="rt-home">
-      {/* Background */}
-      <div className="rt-bg">
-        <div className="rt-radial r1" />
-        <div className="rt-radial r2" />
-        <div className="rt-noise" />
-      </div>
+    <div className="home-editorial">
+      <section className="hero-section" aria-labelledby="hero-title">
+        <motion.div className="hero-copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <span className="availability-pill"><i /> Open to software development opportunities</span>
+          <h1 id="hero-title"><span>ABDUL</span><span>RAHIM.</span></h1>
+          <div className="hero-role">Software Developer <b>/</b> React & Full Stack <b>/</b> Java</div>
+          <p>Designing thoughtful interfaces.<br />Engineering reliable digital experiences.</p>
+          <div className="hero-actions">
+            <Link className="editorial-button primary" to="/projects">Explore my work <FaArrowRight /></Link>
+            <a className="editorial-button secondary" href="/abdulRahim_Resume.pdf" download>Download resume</a>
+          </div>
+          <div className="hero-socials">
+            <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
+            <a href="https://www.linkedin.com/in/abdul-rahim-4806a6283/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+          </div>
+        </motion.div>
 
-      {/* Centered shell (this sits below your separate NavBar) */}
-      <div className="rt-shell">
-        {/* ✅ HOME TOP BAR (not navbar) */}
-        <div className="rt-homebar">
-          <div className="rt-homebar-left">
-            <div className="rt-availability">
-              <span className="rt-dot" />
-              Available for opportunities
+        <motion.div
+          ref={visualRef}
+          className="developer-visual"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.15 }}
+          aria-label="Developer technology workspace"
+        >
+          <div className="visual-grid" />
+          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+          <motion.div className="profile-chip" whileHover={{ y: -6, rotate: 1 }} transition={{ type: "spring", stiffness: 300 }}>
+            <img
+              src="https://res.cloudinary.com/divypkla0/image/upload/v1794085279/AbdulRahim_pp_yn5t5j.jpg"
+              alt="Abdul Rahim"
+            />
+            <div><span>Available now</span><strong>Abdul Rahim</strong></div>
+            <span className="profile-live"><Wifi size={11} /></span>
+          </motion.div>
+          <div className="code-panel">
+            <div className="code-panel-bar"><span /><span /><span /><b>portfolio.tsx</b></div>
+            <pre><code><em>const</em> developer = {"{"}{"\n"}  name: <strong>"Abdul Rahim"</strong>,{"\n"}  focus: <strong>"Full-stack products"</strong>,{"\n"}  location: <strong>"Toronto"</strong>{"\n"}{"}"};</code></pre>
+            <div className="terminal-status"><Terminal size={13} /><span>build successful</span><motion.i animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }} /></div>
+          </div>
+          <div className="visual-stack">
+            {[["REACT", Braces], ["NODE", Terminal], ["SQL", Database], ["API", Sparkles]].map(([label, Icon], index) => (
+              <motion.button
+                type="button"
+                key={label}
+                className={activeSkill === index ? "active" : ""}
+                onClick={() => setActiveSkill(index)}
+                whileHover={{ x: -5, scale: 1.03 }}
+                aria-label={`Highlight ${label}`}
+              >
+                <Icon size={12} /> {label}
+              </motion.button>
+            ))}
+          </div>
+          <div className="visual-index">AR / 2026</div>
+        </motion.div>
+
+        <a className="scroll-cue" href="#about" aria-label="Scroll to about section"><span>Scroll</span><FaArrowDown /></a>
+      </section>
+
+      <section className="about-editorial" id="about">
+        <motion.div className="about-heading" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <span className="section-index">01 / ABOUT</span>
+          <h2>Beyond<br /><i>the code.</i></h2>
+        </motion.div>
+        <motion.div className="about-copy" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <p className="about-lead">I build complete digital experiences — from responsive interfaces to dependable application logic.</p>
+          <p>In December 2025, I graduated with a Computer Programming diploma from Sault College, Toronto. My focus is React and full-stack development, with practical experience across Node.js, REST APIs, MongoDB, MySQL, and SQL Server. I am also continuing to develop my Java and Spring Boot knowledge.</p>
+        </motion.div>
+        <div className="education-panel">
+          <span className="education-year">2025</span>
+          <div><span>Education / Diploma</span><strong>Computer Programming</strong><small>Sault College — Toronto, Ontario</small></div>
+        </div>
+      </section>
+
+      <section className="stack-editorial" id="skills">
+        <div className="section-heading-row">
+          <div><span className="section-index">02 / STACK</span><h2>Built across the stack.</h2></div>
+          <p>Practical tools for thoughtful interfaces and maintainable systems.</p>
+        </div>
+        <div className="bento-grid">
+          <motion.article className="stack-panel stack-featured" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(139,92,246,.38)" }} viewport={{ once: true }} transition={{ duration: .45 }}>
+            <span>01</span><div className="stack-icon"><Layers3 /></div><h3>Frontend Engineering</h3><SkillMarquee skills={frontendSkills} />
+            <p>Responsive React interfaces, reusable components, accessible layouts, and polished animated interactions.</p>
+            <div className="stack-card-footer"><span><i />Interface</span><strong>9 technologies</strong></div>
+          </motion.article>
+          <motion.article className="stack-panel stack-backend" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(34,211,238,.32)" }} viewport={{ once: true }} transition={{ duration: .45, delay: .08 }}>
+            <span>02</span><div className="stack-icon"><Server /></div><h3>Backend</h3><SkillMarquee skills={backendSkills} reverse /><p className="stack-summary">REST APIs · Email delivery · Media services · Admin workflows</p>
+          </motion.article>
+          <motion.article className="stack-panel stack-database" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(103,215,163,.32)" }} viewport={{ once: true }} transition={{ duration: .45, delay: .16 }}>
+            <span>03</span><div className="stack-icon"><Database /></div><h3>Databases</h3><SkillMarquee skills={databaseSkills} /><p className="stack-summary">Schema modeling · SQL · Excel analytics · Reporting</p>
+          </motion.article>
+          <motion.article className="stack-panel stack-tools" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(255,210,138,.28)" }} viewport={{ once: true }} transition={{ duration: .45, delay: .24 }}>
+            <span>04</span><div className="stack-icon"><Wrench /></div><div className="stack-tools-copy"><h3>Developer Tools & AI</h3><SkillMarquee skills={toolSkills} reverse /></div><p className="stack-tools-note">AI-assisted debugging, root-cause analysis, and solution validation.</p>
+          </motion.article>
+        </div>
+      </section>
+
+      <section className="featured-editorial" id="projects">
+        <div className="section-heading-row">
+          <div><span className="section-index">03 / SELECTED WORK</span><h2>Projects with purpose.</h2></div>
+          <Link className="text-link" to="/projects">View all projects <FaArrowRight /></Link>
+        </div>
+        <article className="featured-project">
+          <div className="featured-browser">
+            <div className="browser-bar"><span /><span /><span /><p>{visibleProject.liveUrl?.replace("https://", "") || visibleProject.title}</p></div>
+            <motion.div className="featured-preview" key={visibleProject.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .25 }}>
+              {visibleProject.liveUrl ? (
+                <iframe src={visibleProject.liveUrl} title={`${visibleProject.title} live website preview`} loading="lazy" />
+              ) : (
+                <img src={visibleProject.thumbnail} alt={`${visibleProject.title} preview`} />
+              )}
+            </motion.div>
+          </div>
+          <div className="featured-details">
+            <span className="project-status">{visibleProject.status}</span>
+            <h3>{visibleProject.title}</h3>
+            <p>{visibleProject.summary}</p>
+            <div className="project-tags">{visibleProject.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
+            <div className="project-actions">
+              {visibleProject.liveUrl && <a className="editorial-button primary" href={visibleProject.liveUrl} target="_blank" rel="noreferrer">Live demo <FaArrowRight /></a>}
+              {visibleProject.githubUrl && <a className="editorial-button secondary" href={visibleProject.githubUrl} target="_blank" rel="noreferrer"><FaGithub /> GitHub</a>}
+              <button type="button" className="text-link" onClick={() => setProjectIndex((projectIndex + 1) % projects.length)}>Next project <FaArrowRight /></button>
             </div>
-
-            <div className="rt-skillSearch">
-              <FaSearch className="rt-sicon" />
-              <input
-                value={skillQuery}
-                onChange={(e) => setSkillQuery(e.target.value)}
-                placeholder="Search skills (React, JWT, AWS, SQL...)"
-                aria-label="Search skills"
-              />
-              {skillQuery ? (
-                <button
-                  type="button"
-                  className="rt-sclear"
-                  onClick={() => setSkillQuery("")}
-                >
-                  Clear
-                </button>
-              ) : null}
-            </div>
           </div>
+        </article>
+      </section>
 
-          <div className="rt-homebar-right">
-            <a
-              className="rt-iconbtn"
-              href="https://github.com/Rahim023"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
+      <section className="project-index-editorial" aria-label="Project index">
+        <span className="section-index">04 / PROJECT INDEX</span>
+        <div>
+          {projects.map((project, index) => (
+            <motion.button
+              type="button"
+              key={project.id}
+              className={visibleProject.id === project.id ? "active" : ""}
+              onMouseEnter={() => selectProjectOnHover(index)}
+              onFocus={() => selectProjectOnHover(index)}
+              onClick={() => selectProjectAndView(index)}
+              whileHover="hover"
+              initial="rest"
+              animate="rest"
             >
-              <FaGithub />
-            </a>
-            <a
-              className="rt-iconbtn"
-              href="https://www.linkedin.com/in/abdul-rahim-4806a6283/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin />
-            </a>
-          </div>
+              <span>0{index + 1}</span><strong>{project.title}</strong><small><i />{project.status}</small><motion.span className="project-index-arrow" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: 5, rotate: -35 } }}><ArrowUpRight size={20} /></motion.span>
+            </motion.button>
+          ))}
         </div>
-
-        {/* ✅ ROW 1: Left main info + Right photos/projects */}
-        <div className="row g-4 align-items-stretch">
-          {/* LEFT MAIN CARD */}
-          <div className="col-12 col-lg-7 d-flex">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-              className="rt-card rt-cardPad w-100 d-flex flex-column"
-            >
-              <div>
-                <div className="rt-kicker">Full-Stack MERN • AWS • SQL/NoSQL</div>
-
-                <h1 className="rt-title mt-2">
-                  Abdul Rahim
-                  <span className="rt-glow"> builds premium web experiences.</span>
-                </h1>
-
-                <p className="rt-lead mt-3">
-                  I build fast, modern web apps with secure authentication,
-                  clean UI, and real backend/database flows — designed to feel
-                  premium and work reliably.
-                </p>
-
-                <div className="row g-3 mt-2">
-                  {[
-                    { kpi: "MERN", label: "Full-stack builds" },
-                    { kpi: "JWT", label: "Auth + roles" },
-                    { kpi: "AWS", label: "S3 + deploy ready" },
-                    { kpi: "UI", label: "Modern motion" },
-                  ].map((s, i) => (
-                    <div className="col-6" key={i}>
-                      <div className="rt-stat">
-                        <div className="rt-stat-kpi">{s.kpi}</div>
-                        <div className="rt-stat-label">{s.label}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="d-flex flex-wrap gap-2 mt-4">
-                  <Link to="/projects" className="rt-btn rt-btn-primary">
-                    See Projects <FaArrowRight className="ms-2" />
-                  </Link>
-                  <Link to="/contact" className="rt-btn rt-btn-ghost">
-                    Let’s Talk
-                  </Link>
-                  <a
-                    className="rt-btn rt-btn-soft"
-                    href="/Abdul_Rahim_Resume_Final_feedback.docx"
-                    download
-                  >
-                    Download Resume
-                  </a>
-                </div>
-
-                {/* ✅ Skills chips (respond to search) */}
-                <div className="rt-marquee mt-4">
-                  <div className="rt-marquee-track" style={{ animation: "none" }}>
-                    {(filteredSkills.length ? filteredSkills : ["No match"]).map(
-                      (s, i) => (
-                        <span key={i} className="rt-chip">
-                          {s}
-                        </span>
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-auto pt-4">
-                <div className="rt-divider" />
-                <div className="rt-section-title mb-2">Focus areas</div>
-
-                <div className="row g-3">
-                  <div className="col-12 col-md-6">
-                    <div className="rt-miniCard h-100">
-                      <div className="rt-miniTag">Current goal</div>
-                      <div className="rt-miniTitle">Junior / Intern Role</div>
-                      <div className="rt-miniMeta">
-                        Frontend + Backend • Real-world builds
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-12 col-md-6">
-                    <div className="rt-miniCard h-100">
-                      <div className="rt-miniTag">Strength</div>
-                      <div className="rt-miniTitle">Clean UI + Auth</div>
-                      <div className="rt-miniMeta">
-                        JWT • Protected routes • CRUD
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* RIGHT PHOTOS/PROJECTS CARD */}
-          <div className="col-12 col-lg-5 d-flex">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.08 }}
-              className="rt-card rt-cardPadSlim w-100 d-flex flex-column"
-            >
-              <div className="rt-featureHeader">
-                <div>
-                  <div className="rt-section-title">Featured Work</div>
-                  <div className="rt-section-sub">UI • Backend • Database</div>
-                </div>
-                <div className="rt-pill">
-                  <FaCheckCircle className="me-2" />
-                  Production mindset
-                </div>
-              </div>
-
-              <div className="rt-featureFrame mt-3">
-                <PhotoCarousel images={photos} interval={4200} />
-              </div>
-
-              <div className="rt-divider" />
-
-              <div className="row g-3">
-                {quickProjects.map((p, i) => (
-                  <div className="col-12" key={i}>
-                    <motion.div whileHover={{ y: -5 }} className="rt-miniCard">
-                      <div className="rt-miniTag">{p.tag}</div>
-                      <div className="rt-miniTitle">{p.title}</div>
-                      <div className="rt-miniMeta">{p.meta}</div>
-                    </motion.div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* ✅ ROW 2: Left extra info + Right small map */}
-        <div className="row g-4 mt-1 align-items-stretch">
-          {/* Left: extra info with animation */}
-          <div className="col-12 col-lg-8 d-flex">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55 }}
-              className="rt-card rt-cardPad w-100"
-            >
-              <div className="rt-section-title">More about my work</div>
-              <div className="rt-section-sub">
-                Proof points recruiters can scan fast.
-              </div>
-
-              <div className="row g-3 mt-3">
-                {highlights.map((h, i) => (
-                  <div className="col-12 col-md-4" key={i}>
-                    <motion.div
-                      className="rt-miniCard h-100 rt-miniHover"
-                      whileHover={{ y: -6 }}
-                      transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                    >
-                      <div className="rt-lineIcon mb-3">{h.icon}</div>
-                      <div className="rt-miniTitle">{h.title}</div>
-                      <div className="rt-miniMeta">{h.desc}</div>
-                    </motion.div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="rt-divider" />
-
-              <div className="rt-proofRow">
-                <motion.div className="rt-proofPill" whileHover={{ scale: 1.02 }}>
-                  ✅ Clean component structure
-                </motion.div>
-                <motion.div className="rt-proofPill" whileHover={{ scale: 1.02 }}>
-                  ✅ JWT + protected routes + roles
-                </motion.div>
-                <motion.div className="rt-proofPill" whileHover={{ scale: 1.02 }}>
-                  ✅ APIs + DB workflows (SQL/NoSQL)
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right: small map card */}
-          <div className="col-12 col-lg-4 d-flex">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: 0.06 }}
-              className="rt-card rt-cardPadSlim w-100"
-            >
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="rt-section-title">
-                  <FaMapMarkerAlt className="me-2" />
-                  Toronto, ON
-                </div>
-                <span className="rt-mutedSmall">Open to remote</span>
-              </div>
-
-              <div className="rt-mapWrap mt-2">
-                <iframe
-                  title="Toronto"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.493033953357!2d-79.3831846845008!3d43.6532267791218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d77a77fbe9%3A0x7e3bdebcd9af11cb!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1672480000000!5m2!1sen!2sca"
-                  width="100%"
-                  height="220"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

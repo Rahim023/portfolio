@@ -1,125 +1,119 @@
-import React, { useMemo, useState } from "react";
-import { FaEnvelope, FaPhone, FaInstagram, FaGithub, FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { ArrowRight, Check, CircleAlert, LoaderCircle, MailCheck, X } from "lucide-react";
+import "./Contact.css";
 
 export default function Contact() {
-  const [status, setStatus] = useState("");
-
+  const [status, setStatus] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const email = "rahimkhan231205@gmail.com";
-  const phone = "+1 437 879 6445";
 
-  const subject = useMemo(() => encodeURIComponent("Project Inquiry - Abdul Rahim Portfolio"), []);
-  const bodyTemplate = useMemo(
-    () =>
-      encodeURIComponent(
-        "Hi Abdul,\n\nI’d like to discuss a project/opportunity:\n\n- Company:\n- Role/Project:\n- Timeline:\n- Budget (optional):\n\nThanks,\n"
-      ),
-    []
-  );
+  useEffect(() => {
+    if (!status || status.type === "error") return undefined;
+    const timer = window.setTimeout(() => setStatus(null), 5200);
+    return () => window.clearTimeout(timer);
+  }, [status]);
+
+  useEffect(() => {
+    if (!status) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setStatus(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [status]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    if (data.get("website")) return;
+    const name = String(data.get("name") || "").trim();
+    const senderEmail = String(data.get("email") || "").trim();
+    const subjectText = String(data.get("subject") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    if (name.length < 2 || subjectText.length < 3 || message.length < 20) {
+      setStatus({ type: "error", title: "A few details are missing", message: "Please complete every field with enough detail before sending." });
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email: senderEmail, subject: subjectText, message, website: String(data.get("website") || "") })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || "Unable to send your message.");
+      setStatus({ type: "success", title: "Message sent", message: "Thank you. Your message has reached Abdul’s inbox." });
+      form.reset();
+    } catch (error) {
+      setStatus({ type: "error", title: "Message not sent", message: error.message || "Unable to send your message. Please try again." });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <div className="rt-page">
-      <div className="mb-3">
-        <h2 className="rt-h2 mb-1">Contact</h2>
-        <p className="rt-muted mb-0">Jobs, freelance, or collaboration — message me anytime.</p>
+    <section className="contact-editorial">
+      <motion.div className="contact-heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <span className="contact-index">04 / Contact</span>
+        <h1>Let’s build<br /><i>something meaningful.</i></h1>
+      </motion.div>
+      <div className="contact-layout">
+        <aside className="contact-details">
+          <p>Have a role, project, or idea in mind? I’m open to junior developer opportunities and thoughtful freelance work.</p>
+          <a className="contact-email" href={`mailto:${email}`}><FaEnvelope /><span>{email}</span></a>
+          <div className="contact-socials">
+            <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
+            <a href="https://www.linkedin.com/in/abdul-rahim-4806a6283/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+          </div>
+          <div className="availability"><i /><span>Available for opportunities</span></div>
+        </aside>
+        <motion.form className="contact-form" onSubmit={handleSubmit} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <div className="form-row">
+            <label>Name<input name="name" minLength="2" maxLength="80" required autoComplete="name" placeholder="Your name" /></label>
+            <label>Email<input name="email" type="email" maxLength="254" required autoComplete="email" placeholder="you@example.com" /></label>
+          </div>
+          <label>Subject<input name="subject" minLength="3" maxLength="120" required placeholder="Role, project, or collaboration" /></label>
+          <label>Message<textarea name="message" minLength="20" maxLength="2000" rows="5" required placeholder="Tell me a little about what you’re building..." /></label>
+          <div className="honeypot" aria-hidden="true"><input name="website" tabIndex="-1" autoComplete="off" /></div>
+          <motion.button type="submit" disabled={submitting} whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
+            <span>{submitting ? "Sending…" : "Send message"}</span>
+            {submitting ? <LoaderCircle className="contact-loader" size={17} /> : <ArrowRight size={17} />}
+          </motion.button>
+        </motion.form>
       </div>
-
-      <div className="row g-4">
-        <div className="col-12 col-lg-7">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="rt-card p-4"
-          >
-            <h5 className="mb-2">Let’s build something</h5>
-            <p className="rt-muted">
-              Send a message and I’ll respond quickly. (This opens your email app.)
-            </p>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setStatus("Opening your email app…");
-                window.location.href = `mailto:${email}?subject=${subject}&body=${bodyTemplate}`;
-                setTimeout(() => setStatus(""), 2000);
-              }}
+      <AnimatePresence>
+        {status && (
+          <motion.div className="contact-modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setStatus(null)}>
+            <motion.div
+              className={`contact-modal ${status.type}`}
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="contact-modal-title"
+              initial={{ opacity: 0, y: 16, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
+              onClick={(event) => event.stopPropagation()}
             >
-              <div className="row g-3">
-                <div className="col-12 col-md-6">
-                  <label className="form-label rt-form-label">Name</label>
-                  <input className="form-control rt-input" placeholder="Your name" required />
-                </div>
-                <div className="col-12 col-md-6">
-                  <label className="form-label rt-form-label">Email</label>
-                  <input type="email" className="form-control rt-input" placeholder="you@example.com" required />
-                </div>
-                <div className="col-12">
-                  <label className="form-label rt-form-label">Message</label>
-                  <textarea className="form-control rt-input" rows="5" placeholder="Tell me about the role/project..." required />
-                </div>
-              </div>
-
-              <div className="d-flex gap-2 flex-wrap mt-3">
-                <button className="rt-btn rt-btn-primary">Send Message</button>
-
-                <a className="rt-btn rt-btn-ghost" href={`mailto:${email}?subject=${subject}&body=${bodyTemplate}`}>
-                  Email Directly
-                </a>
-
-                <a
-                  className="rt-btn rt-btn-soft"
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://www.linkedin.com/in/abdul-rahim-4806a6283/"
-                >
-                  Message on LinkedIn
-                </a>
-              </div>
-
-              {status && <div className="rt-mutedSmall mt-2">{status}</div>}
-            </form>
+              <button className="contact-modal-close" type="button" onClick={() => setStatus(null)} aria-label="Close message"><X size={18} /></button>
+              <motion.div className="contact-modal-icon" initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", delay: 0.12 }}>
+                {status.type === "success" ? <MailCheck size={28} /> : <CircleAlert size={28} />}
+              </motion.div>
+              <span className="contact-modal-label">{status.type === "success" ? "Delivery confirmed" : "Action required"}</span>
+              <h2 id="contact-modal-title">{status.title}</h2>
+              <p>{status.message}</p>
+              <motion.button type="button" onClick={() => setStatus(null)} whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                {status.type === "success" ? <><Check size={16} /> Done</> : <>Try again <ArrowRight size={16} /></>}
+              </motion.button>
+            </motion.div>
           </motion.div>
-        </div>
-
-        <div className="col-12 col-lg-5">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="rt-card p-4"
-          >
-            <h5 className="mb-3">Contact Info</h5>
-
-            <div className="rt-infoLine">
-              <FaEnvelope /> <span>{email}</span>
-            </div>
-            <div className="rt-infoLine">
-              <FaPhone /> <span>{phone}</span>
-            </div>
-
-            <div className="rt-callout mt-3">
-              <div className="fw-semibold">Availability</div>
-              <div className="rt-mutedSmall">Open to internships / junior dev roles / freelance</div>
-            </div>
-
-            <hr className="rt-hr" />
-
-            <h6 className="mb-2">Social</h6>
-            <div className="d-flex gap-2 flex-wrap">
-              <a className="rt-btn rt-btn-ghost rt-btn-sm" target="_blank" rel="noreferrer" href="https://www.instagram.com/rxhim_khan/?__pwa=1">
-                <FaInstagram className="me-2" /> Instagram
-              </a>
-              <a className="rt-btn rt-btn-ghost rt-btn-sm" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/abdul-rahim-4806a6283/">
-                <FaLinkedin className="me-2" /> LinkedIn
-              </a>
-              <a className="rt-btn rt-btn-ghost rt-btn-sm" target="_blank" rel="noreferrer" href="https://github.com/Rahim023">
-                <FaGithub className="me-2" /> GitHub
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 }
