@@ -10,7 +10,23 @@ const escapeHtml = (value) => String(value)
 
 const app = express();
 app.use(express.json({ limit: "20kb" }));
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://rahim23-portfolio.netlify.app",
+  "http://localhost:3000",
+].filter(Boolean).flatMap((value) => value.split(",").map((origin) => origin.trim()));
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin || true);
+      return;
+    }
+    callback(new Error("Origin not allowed by CORS"));
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}));
 
 app.get("/api/health", (_request, response) => response.json({ status: "ok" }));
 
