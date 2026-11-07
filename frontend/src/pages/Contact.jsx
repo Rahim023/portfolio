@@ -40,7 +40,7 @@ export default function Contact() {
     }
     setSubmitting(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/contact`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || "https://portfolio-29ge.onrender.com"}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email: senderEmail, subject: subjectText, message, website: String(data.get("website") || "") })
