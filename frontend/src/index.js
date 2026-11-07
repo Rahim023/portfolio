@@ -6,6 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "./styles/theme.css";
 
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
 
 const container = document.getElementById("root");
 const root = createRoot(container);

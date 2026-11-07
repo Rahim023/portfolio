@@ -10,6 +10,7 @@
   --shadow: rgba(0,0,0,0.55);
   --gradA: rgba(160,110,255,0.95);
   --gradB: rgba(60,160,255,0.95);
+  --site-width: 1400px;
 }
 
 html, body, #root { height: 100%; }
@@ -26,9 +27,7 @@ body::before{
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  background:
-    radial-gradient(900px 650px at 0% 35%, rgba(160,110,255,0.22), transparent 60%),
-    radial-gradient(900px 650px at 100% 40%, rgba(60,160,255,0.18), transparent 60%);
+  background: linear-gradient(135deg, rgba(255,255,255,.018), transparent 40%);
 }
 body::after{
   content:"";
@@ -640,9 +639,9 @@ body::after{
 
 /* ===== Centered layout shell ===== */
 .rt-shell{
-  max-width: 1180px;
+  max-width: var(--site-width, 1180px);
   margin: 0 auto;
-  padding: 18px 16px 12px;
+  padding: 18px 24px 12px;
 }
 .rt-topbar{
   display:flex;
