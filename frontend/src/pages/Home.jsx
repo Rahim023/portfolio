@@ -14,6 +14,7 @@ import Folder from "../components/Folder";
 import Lightning from "../components/Lightning";
 import ParticleText from "../components/ParticleText";
 import SkillsOrb from "../components/SkillsOrb";
+import StarBorder from "../components/StarBorder";
 import "./Home.css";
 
 const frontendSkills = ["React", "JavaScript", "Tailwind CSS", "Bootstrap", "Framer Motion", "React Components", "HTML", "CSS", "Lucide Icons"];
@@ -129,8 +130,8 @@ export default function Home() {
           <div className="hero-role">Software Developer <b>/</b> React & Full Stack <b>/</b> Java</div>
           <p>Designing thoughtful interfaces.<br />Engineering reliable digital experiences.</p>
           <div className="hero-actions">
-            <Link className="editorial-button primary" to="/projects">Explore my work <FaArrowRight /></Link>
-            <Link className="editorial-button secondary" to="/resume">View resume</Link>
+            <Link className="editorial-button primary" to="/projects">Explore my work <FaArrowRight /><StarBorder /></Link>
+            <Link className="editorial-button secondary" to="/resume">View resume<StarBorder /></Link>
           </div>
           <div className="hero-socials">
             <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
@@ -198,7 +199,7 @@ export default function Home() {
                       whileHover={{ x: -5, scale: 1.03 }}
                       aria-label={`Highlight ${label}`}
                     >
-                      <Icon size={12} /> {label}
+                      <Icon size={12} /> {label}<StarBorder />
                     </motion.button>
                   ))}
                 </div>
@@ -254,7 +255,6 @@ export default function Home() {
           <motion.article className="stack-panel stack-featured" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(139,92,246,.38)" }} viewport={{ once: true }} transition={{ duration: .45 }}>
             <span>01</span><div className="stack-icon"><Layers3 /></div><h3>Frontend Engineering</h3><SkillMarquee skills={frontendSkills} />
             <p>Responsive React interfaces, reusable components, accessible layouts, and polished animated interactions.</p>
-            <div className="stack-card-footer"><span><i />Interface</span><strong>9 technologies</strong></div>
           </motion.article>
           <motion.article className="stack-panel stack-backend" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -8, borderColor: "rgba(34,211,238,.32)" }} viewport={{ once: true }} transition={{ duration: .45, delay: .08 }}>
             <span>02</span><div className="stack-icon"><Server /></div><h3>Backend</h3><SkillMarquee skills={backendSkills} reverse /><p className="stack-summary">REST APIs · Email delivery · Media services · Admin workflows</p>
@@ -271,7 +271,7 @@ export default function Home() {
       <section className="featured-editorial" id="projects">
         <div className="section-heading-row" data-scroll-reveal>
           <div><span className="section-index">03 / SELECTED WORK</span><h2>Projects with purpose.</h2></div>
-          <Link className="text-link" to="/projects">View all projects <FaArrowRight /></Link>
+          <Link className="text-link" to="/projects">View all projects <FaArrowRight /><StarBorder /></Link>
         </div>
         <article className="featured-project">
           <div className="featured-browser">
@@ -290,9 +290,9 @@ export default function Home() {
             <p>{visibleProject.summary}</p>
             <div className="project-tags">{visibleProject.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
             <div className="project-actions">
-              {visibleProject.liveUrl && <a className="editorial-button primary" href={visibleProject.liveUrl} target="_blank" rel="noreferrer">Live demo <FaArrowRight /></a>}
-              {visibleProject.githubUrl && <a className="editorial-button secondary" href={visibleProject.githubUrl} target="_blank" rel="noreferrer"><FaGithub /> GitHub</a>}
-              <button type="button" className="text-link" onClick={() => setProjectIndex((projectIndex + 1) % projects.length)}>Next project <FaArrowRight /></button>
+              {visibleProject.liveUrl && <a className="editorial-button primary" href={visibleProject.liveUrl} target="_blank" rel="noreferrer">Live demo <FaArrowRight /><StarBorder /></a>}
+              {visibleProject.githubUrl && <a className="editorial-button secondary" href={visibleProject.githubUrl} target="_blank" rel="noreferrer"><FaGithub /> GitHub<StarBorder /></a>}
+              <button type="button" className="text-link" onClick={() => setProjectIndex((projectIndex + 1) % projects.length)}>Next project <FaArrowRight /><StarBorder /></button>
             </div>
           </div>
         </article>
@@ -313,7 +313,7 @@ export default function Home() {
               initial="rest"
               animate="rest"
             >
-              <span>0{index + 1}</span><strong>{project.title}</strong><small><i />{project.status}</small><motion.span className="project-index-arrow" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: 5, rotate: -35 } }}><ArrowUpRight size={20} /></motion.span>
+              <span>0{index + 1}</span><strong>{project.title}</strong><small><i />{project.status}</small><motion.span className="project-index-arrow" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: 5, rotate: -35 } }}><ArrowUpRight size={20} /></motion.span><StarBorder />
             </motion.button>
           ))}
         </div>

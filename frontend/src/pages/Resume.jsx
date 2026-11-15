@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight, FiRefreshCw } from "react-icons/fi";
 import LoadingDial from "../components/LoadingDial";
+import StarBorder from "../components/StarBorder";
 import "./Resume.css";
 
 const resumePath = "/abdulRahim-SE1.pdf";
@@ -75,7 +76,7 @@ function ResumeViewer({ onRetry }) {
         <h2>Unable to load the resume</h2>
         <p>{error}</p>
         <p>You can retry or open the PDF directly.</p>
-        <button type="button" onClick={onRetry}><FiRefreshCw /> Retry</button>
+        <button type="button" onClick={onRetry}><FiRefreshCw /> Retry<StarBorder /></button>
         <a href={resumePath} target="_blank" rel="noreferrer">Open PDF <FiArrowUpRight /></a>
       </div>
     );

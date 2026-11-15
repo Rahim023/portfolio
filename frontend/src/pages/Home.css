@@ -115,3 +115,10 @@
   .education-panel small { overflow-wrap:anywhere; }
 }
 @media(max-width:360px) { .skills-book-visual .folder-root { transform:scale(.68); } }
+
+.stack-featured { height:auto; padding:clamp(24px, 2.5vw, 36px); border-color:rgba(195,165,255,.2); background:radial-gradient(circle at 85% 10%,rgba(139,92,246,.18),transparent 40%),linear-gradient(145deg,#21192e,#111318 70%); }
+.stack-featured .stack-icon { flex-shrink:0; color:#d5c2ff; border-color:rgba(190,164,255,.26); background:rgba(139,92,246,.13); }
+.stack-featured h3 { color:#f3eefb; letter-spacing:-.04em; }
+.stack-featured .skill-marquee { width:calc(100% + 2 * clamp(24px, 2.5vw, 36px)); margin-left:calc(-1 * clamp(24px, 2.5vw, 36px)); margin-right:calc(-1 * clamp(24px, 2.5vw, 36px)); }
+.stack-featured p { margin-top:20px!important; padding-top:18px!important; border-top:1px solid rgba(207,187,255,.12); color:#c7bdd4; }
+@media(min-width:981px) { .stack-backend { height:100%; } }

@@ -11,6 +11,7 @@ import Particles from "./components/Particles";
 import AnimatedContent from "./components/AnimatedContent";
 import LanyardIntro from "./components/LanyardIntro";
 import LoadingDial from "./components/LoadingDial";
+import StarBorder from "./components/StarBorder";
 
 const Home = lazy(() => import("./pages/Home"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -90,7 +91,7 @@ class RouteErrorBoundary extends React.Component {
 
   render() {
     if (this.state.error) {
-      return <div className="loading-dial" role="alert"><p>Unable to load this page.</p><button type="button" onClick={() => window.location.reload()}>Reload page</button></div>;
+      return <div className="loading-dial" role="alert"><p>Unable to load this page.</p><button type="button" onClick={() => window.location.reload()}>Reload page<StarBorder /></button></div>;
     }
     return this.props.children;
   }

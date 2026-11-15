@@ -3,6 +3,7 @@ import { FaArrowRight, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import CircularCarousel from "../components/CircularCarousel";
 import SkillsOrb from "../components/SkillsOrb";
+import StarBorder from "../components/StarBorder";
 import { projects } from "../data/projects";
 import "./Projects.css";
 
@@ -58,13 +59,13 @@ export default function Projects() {
           <h1>Ideas into <em>impact.</em></h1>
           <p>A closer look at the projects, decisions, and details behind the work.</p>
         </div>
-        <Link to="/contact" className="projects-contact">Let's work together <FaArrowRight /></Link>
+        <Link to="/contact" className="projects-contact">Let's work together <FaArrowRight /><StarBorder /></Link>
       </header>
 
       <div className="project-filters" role="group" aria-label="Filter projects">
         {filters.map((filter) => (
           <button key={filter} type="button" className={active === filter ? "active" : ""} onClick={() => selectFilter(filter)} aria-pressed={active === filter}>
-            {filter}
+            {filter}<StarBorder />
           </button>
         ))}
       </div>
@@ -101,12 +102,12 @@ export default function Projects() {
                 <button key={project.id} type="button" className={project.id === selected.id ? "active" : ""} aria-pressed={project.id === selected.id} onClick={() => selectProject(index)}>
                   <span className="project-selector-number">{String(index + 1).padStart(2, "0")}</span>
                   <span className="project-selector-name">{project.title}<small>{project.category}</small></span>
-                  <span className="project-selector-arrow" aria-hidden="true">↗</span>
+                  <span className="project-selector-arrow" aria-hidden="true">↗</span><StarBorder />
                 </button>
               ))}
             </div>
             <button type="button" className="project-detail-jump" onClick={() => detailRef.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" })}>
-              View project details <span aria-hidden="true">↓</span>
+              View project details <span aria-hidden="true">↓</span><StarBorder />
             </button>
           </section>
 
@@ -122,8 +123,8 @@ export default function Projects() {
               <p>{selected.description}</p>
             </div>
             <div className="project-detail-actions">
-              {selected.liveUrl && <a className="project-detail-primary" href={selected.liveUrl} target="_blank" rel="noreferrer">Live project <FaExternalLinkAlt /></a>}
-              {selected.githubUrl && <a className="project-detail-secondary" href={selected.githubUrl} target="_blank" rel="noreferrer"><FaGithub /> View repository</a>}
+              {selected.liveUrl && <a className="project-detail-primary" href={selected.liveUrl} target="_blank" rel="noreferrer">Live project <FaExternalLinkAlt /><StarBorder /></a>}
+              {selected.githubUrl && <a className="project-detail-secondary" href={selected.githubUrl} target="_blank" rel="noreferrer"><FaGithub /> View repository<StarBorder /></a>}
             </div>
             {selected.liveUrl && <ProjectLivePreview key={selected.id} project={selected} />}
             <div className="project-detail-section">
@@ -168,7 +169,7 @@ export default function Projects() {
           <span>NOTHING HERE YET</span>
           <h2>More work is on its way.</h2>
           <p>There are no projects in this category yet.</p>
-          <button type="button" onClick={() => selectFilter("All Projects")}>View all projects <FaArrowRight /></button>
+          <button type="button" onClick={() => selectFilter("All Projects")}>View all projects <FaArrowRight /><StarBorder /></button>
         </div>
       )}
     </div>

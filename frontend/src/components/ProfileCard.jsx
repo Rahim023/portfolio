@@ -1,5 +1,6 @@
 import { memo, useEffect, useRef } from 'react';
 import { Mail } from 'lucide-react';
+import StarBorder from './StarBorder';
 
 import './ProfileCard.css';
 
@@ -351,6 +352,7 @@ const ProfileCard = ({
               >
                 <Mail size={16} strokeWidth={1.8} />
                 {contactText}
+                <StarBorder />
               </button>
             )}
           </div>

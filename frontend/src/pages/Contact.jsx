@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { ArrowRight, Check, CircleAlert, LoaderCircle, MailCheck, X } from "lucide-react";
+import StarBorder from "../components/StarBorder";
 import "./Contact.css";
 
 export default function Contact() {
@@ -84,6 +85,7 @@ export default function Contact() {
           <motion.button type="submit" disabled={submitting} whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
             <span>{submitting ? "Sending…" : "Send message"}</span>
             {submitting ? <LoaderCircle className="contact-loader" size={17} /> : <ArrowRight size={17} />}
+            <StarBorder />
           </motion.button>
         </motion.form>
       </div>
@@ -101,7 +103,7 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               onClick={(event) => event.stopPropagation()}
             >
-              <button className="contact-modal-close" type="button" onClick={() => setStatus(null)} aria-label="Close message"><X size={18} /></button>
+              <button className="contact-modal-close" type="button" onClick={() => setStatus(null)} aria-label="Close message"><X size={18} /><StarBorder /></button>
               <motion.div className="contact-modal-icon" initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", delay: 0.12 }}>
                 {status.type === "success" ? <MailCheck size={28} /> : <CircleAlert size={28} />}
               </motion.div>
@@ -109,7 +111,7 @@ export default function Contact() {
               <h2 id="contact-modal-title">{status.title}</h2>
               <p>{status.message}</p>
               <motion.button type="button" onClick={() => setStatus(null)} whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                {status.type === "success" ? <><Check size={16} /> Done</> : <>Try again <ArrowRight size={16} /></>}
+                {status.type === "success" ? <><Check size={16} /> Done</> : <>Try again <ArrowRight size={16} /></>}<StarBorder />
               </motion.button>
             </motion.div>
           </motion.div>

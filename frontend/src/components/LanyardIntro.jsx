@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FiX } from "react-icons/fi";
 import Lanyard from "./Lanyard";
 import useDialog from "./useDialog";
+import StarBorder from "./StarBorder";
 import backImage from "./lanyard-back.svg";
 import strapImage from "./lanyard-strap.svg";
 import "./LanyardIntro.css";
@@ -33,13 +34,13 @@ export default function LanyardIntro({ onClose }) {
         <h2 id="lanyard-intro-title">Meet Abdul Rahim.</h2>
       </div>
       <button className="lanyard-intro-close" type="button" onClick={onClose} aria-label="Close introduction">
-        <FiX size={20} />
+        <FiX size={20} /><StarBorder />
       </button>
 
       {unavailable ? (
         <div className="lanyard-intro-fallback">
           <button type="button" className="lanyard-fallback-card" onClick={() => setFlipped((current) => !current)} aria-label="Flip profile card" aria-pressed={flipped}>
-            <img src={flipped ? backImage : portrait} alt="" />
+            <img src={flipped ? backImage : portrait} alt="" /><StarBorder />
           </button>
         </div>
       ) : (

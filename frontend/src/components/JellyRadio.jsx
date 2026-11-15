@@ -3,6 +3,7 @@
 import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { animate, motion, motionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import StarBorder from './StarBorder';
 
 import './JellyRadio.css';
 
@@ -22,7 +23,7 @@ const Chip = forwardRef(function Chip({ mv, children, to, ...rest }, ref) {
   const Element = to ? MotionLink : motion.button;
   return (
     <Element ref={ref} to={to} style={{ transform }} {...rest}>
-      {children}
+      {children}<StarBorder />
     </Element>
   );
 });

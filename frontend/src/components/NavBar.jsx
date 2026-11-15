@@ -7,6 +7,7 @@ import ElectricBorder from "./ElectricBorder";
 import ProfileCard from "./ProfileCard";
 import useDialog from "./useDialog";
 import JellyRadio from "./JellyRadio";
+import StarBorder from "./StarBorder";
 import "./NavBar.css";
 
 export default function NavBar() {
@@ -66,10 +67,12 @@ export default function NavBar() {
           <button className="nav-monogram" type="button" onClick={openProfile} aria-label="Open Abdul Rahim profile">
             <img src="https://res.cloudinary.com/divypkla0/image/upload/v1794085279/AbdulRahim_pp_yn5t5j.jpg" alt="" />
             <span className="nav-monogram-status" aria-hidden="true" />
+            <StarBorder />
           </button>
           <button className="nav-profile-prompt" type="button" onClick={openProfile}>
             <strong>Abdul Rahim</strong>
             <span>View profile <FiArrowUpRight aria-hidden="true" /></span>
+            <StarBorder />
           </button>
         </div>
         <JellyRadio
@@ -95,9 +98,10 @@ export default function NavBar() {
         />
         <div className="nav-actions">
           <a className="nav-icon-link" href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
-          <Link className="nav-resume" to="/resume">View resume <FiArrowUpRight /></Link>
+          <Link className="nav-resume" to="/resume">View resume <FiArrowUpRight /><StarBorder /></Link>
           <button ref={menuButtonRef} className="nav-menu-button" type="button" onClick={() => setMobileOpen((open) => !open)} aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label={mobileOpen ? "Close navigation" : "Open navigation"}>
             {mobileOpen ? <FiX /> : <FiMenu />}
+            <StarBorder />
           </button>
         </div>
       </nav>
@@ -105,11 +109,11 @@ export default function NavBar() {
         {mobileOpen && (
           <motion.div id="mobile-navigation" className="mobile-navigation" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
             <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
-            <button type="button" onClick={() => goToSection("about")}>About</button>
-            <button type="button" onClick={() => goToSection("skills")}>Skills</button>
+            <button type="button" onClick={() => goToSection("about")}>About<StarBorder /></button>
+            <button type="button" onClick={() => goToSection("skills")}>Skills<StarBorder /></button>
             <Link to="/projects" onClick={() => setMobileOpen(false)}>Work</Link>
             <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
-            <Link to="/resume" onClick={() => setMobileOpen(false)}>View resume <FiArrowUpRight /></Link>
+            <Link to="/resume" onClick={() => setMobileOpen(false)}>View resume <FiArrowUpRight /><StarBorder /></Link>
             <div><a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a><a href="https://www.linkedin.com/in/abdul-rahim-4806a6283/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a></div>
           </motion.div>
         )}
@@ -118,7 +122,7 @@ export default function NavBar() {
         {profileOpen && (
           <motion.div className="profile-modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setProfileOpen(false)}>
             <motion.div ref={profileRef} className="profile-modal" role="dialog" aria-modal="true" aria-label="Abdul Rahim profile" initial={{ opacity: 0, y: 18, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: 0.96 }} transition={{ type: "spring", stiffness: 260, damping: 24 }} onClick={(event) => event.stopPropagation()}>
-              <button className="profile-modal-close" type="button" onClick={() => setProfileOpen(false)} aria-label="Close profile"><FiX /></button>
+              <button className="profile-modal-close" type="button" onClick={() => setProfileOpen(false)} aria-label="Close profile"><FiX /><StarBorder /></button>
               <ElectricBorder color="#8b5cf6" glowColor="#a855f7" borderRadius={26}>
                 <ProfileCard
                   name="Abdul Rahim"

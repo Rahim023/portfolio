@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowUp, FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
+import StarBorder from "./StarBorder";
 import "./Footer.css";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
         <span className="footer-kicker">Available for select opportunities</span>
         <div>
           <p>Have an idea worth building?</p>
-          <Link to="/contact">Start a conversation <FiArrowUpRight /></Link>
+          <Link to="/contact">Start a conversation <FiArrowUpRight /><StarBorder /></Link>
         </div>
       </motion.div>
       <div className="footer-inner">
@@ -29,7 +30,7 @@ export default function Footer() {
         <div className="footer-socials">
           <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
           <a href="https://www.linkedin.com/in/abdul-rahim-4806a6283/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><FaArrowUp /></button>
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><FaArrowUp /><StarBorder /></button>
         </div>
       </div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Abdul Rahim</span><span>React / Node / Java</span></div>
