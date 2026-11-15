@@ -1,0 +1,119 @@
+.lanyard-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  background: rgba(8,9,12,.42);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #f5f3fa;
+}
+
+.lanyard-intro-heading {
+  position: absolute;
+  z-index: 2;
+  top: clamp(24px, 5vh, 48px);
+  left: clamp(20px, 5vw, 64px);
+  pointer-events: none;
+}
+
+.lanyard-intro-heading span {
+  font: 10px "JetBrains Mono", monospace;
+  letter-spacing: .16em;
+  color: #b9a2e8;
+}
+
+.lanyard-intro-heading h2 {
+  margin: 8px 0 0;
+  font-size: clamp(18px, 2vw, 28px);
+  letter-spacing: -.03em;
+}
+
+.lanyard-intro-close {
+  position: absolute;
+  z-index: 3;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  background: rgba(15,11,24,.8);
+  color: #fff;
+  cursor: pointer;
+}
+
+.lanyard-intro-controls {
+  position: absolute;
+  z-index: 2;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.lanyard-intro-controls span {
+  margin: 0;
+  color: #c6bdd4;
+  font-size: 12px;
+}
+
+.lanyard-intro-controls p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lanyard-intro button:focus-visible,
+.lanyard-canvas:focus-visible {
+  outline: 2px solid #d8c8ff;
+  outline-offset: -3px;
+}
+
+.lanyard-intro-fallback {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.lanyard-fallback-card {
+  width: min(250px, 65vw);
+  aspect-ratio: 1.6 / 2.25;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #8b5cf6;
+  border-radius: 20px;
+  background: #171020;
+  box-shadow: 0 0 40px rgba(139,92,246,.3);
+  cursor: pointer;
+}
+
+.lanyard-fallback-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lanyard-intro-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .lanyard-intro-heading { top: 24px; left: 20px; }
+  .lanyard-intro-close { top: 20px; right: 20px; }
+}

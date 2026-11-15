@@ -40,8 +40,10 @@ body::after{
   opacity: 0.9;
 }
 
-.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.app-shell { position: relative; isolation: isolate; min-height: 100vh; display: flex; flex-direction: column; }
+.app-content-layer { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
 .app-main { flex: 1; }
+.lenis.lenis-smooth .project-preview iframe { pointer-events: auto; }
 
 /* ===== Cards / Common ===== */
 .rt-card{

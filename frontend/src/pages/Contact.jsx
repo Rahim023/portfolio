@@ -64,7 +64,7 @@ export default function Contact() {
         <h1>Let’s build<br /><i>something meaningful.</i></h1>
       </motion.div>
       <div className="contact-layout">
-        <aside className="contact-details">
+        <aside className="contact-details" data-scroll-reveal>
           <p>Have a role, project, or idea in mind? I’m open to junior developer opportunities and thoughtful freelance work.</p>
           <a className="contact-email" href={`mailto:${email}`}><FaEnvelope /><span>{email}</span></a>
           <div className="contact-socials">

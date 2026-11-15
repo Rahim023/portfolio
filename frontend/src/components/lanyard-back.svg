@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1125" viewBox="0 0 800 1125">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#211333"/>
+      <stop offset="1" stop-color="#090a10"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#f8f6ff"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1125" fill="url(#background)"/>
+  <rect x="48" y="48" width="704" height="1029" rx="35" fill="none" stroke="#8b5cf6" stroke-opacity=".5" stroke-width="3"/>
+  <path d="M92 205H708" stroke="url(#accent)" stroke-width="4"/>
+  <text x="92" y="170" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="24" letter-spacing="5">DEVELOPER / 2026</text>
+  <text x="92" y="310" fill="#fff" font-family="Arial, sans-serif" font-size="65" font-weight="700">ABDUL</text>
+  <text x="92" y="388" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="65" font-weight="700">RAHIM</text>
+  <text x="92" y="460" fill="#e2e0eb" font-family="Arial, sans-serif" font-size="28">Software Developer</text>
+  <path d="M92 520H708" stroke="#ffffff" stroke-opacity=".2" stroke-width="2"/>
+  <text x="92" y="590" fill="#a78bfa" font-family="Arial, sans-serif" font-size="23" letter-spacing="3">FOCUS</text>
+  <text x="92" y="635" fill="#fff" font-family="Arial, sans-serif" font-size="28">React / Full Stack / Java</text>
+  <text x="92" y="720" fill="#a78bfa" font-family="Arial, sans-serif" font-size="23" letter-spacing="3">LOCATION</text>
+  <text x="92" y="765" fill="#fff" font-family="Arial, sans-serif" font-size="28">Toronto, Ontario</text>
+  <text x="92" y="850" fill="#a78bfa" font-family="Arial, sans-serif" font-size="23" letter-spacing="3">EDUCATION</text>
+  <text x="92" y="895" fill="#fff" font-family="Arial, sans-serif" font-size="26">Computer Programming</text>
+  <text x="92" y="935" fill="#c4bfd1" font-family="Arial, sans-serif" font-size="23">Sault College / 2025</text>
+  <text x="92" y="1030" fill="#c4bfd1" font-family="Arial, sans-serif" font-size="24">github.com/Rahim023</text>
+</svg>

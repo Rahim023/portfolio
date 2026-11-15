@@ -7,14 +7,25 @@ import {
   SiHtml5, SiJavascript, SiMicrosoftsqlserver, SiMongodb, SiMysql, SiNetlify,
   SiMongoose, SiNodedotjs, SiOpenai, SiPostman, SiReact, SiSpringboot, SiTailwindcss, SiVite
 } from "react-icons/si";
-import { Braces, Database, Terminal, Wifi, Sparkles, Layers3, Server, Wrench, ArrowUpRight } from "lucide-react";
+import { Braces, Database, Terminal, Sparkles, Layers3, Server, Wrench, ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
+import ElectricBorder from "../components/ElectricBorder";
+import Folder from "../components/Folder";
+import Lightning from "../components/Lightning";
+import ParticleText from "../components/ParticleText";
+import SkillsOrb from "../components/SkillsOrb";
 import "./Home.css";
 
 const frontendSkills = ["React", "JavaScript", "Tailwind CSS", "Bootstrap", "Framer Motion", "React Components", "HTML", "CSS", "Lucide Icons"];
 const backendSkills = ["Node.js", "Express.js", "Mongoose", "REST APIs", "Nodemailer", "SMTP", "Cloudinary", "Java", "Spring Boot", "Admin Dashboards"];
 const databaseSkills = ["MongoDB", "MySQL", "SQL Server", "SQL", "Excel", "Power Query", "Power Pivot", "Data Modeling"];
 const toolSkills = ["Git", "GitHub", "VS Code", "Postman", "Vite", "Netlify", "GitHub Copilot", "Claude", "ChatGPT", "AI-Assisted Debugging"];
+
+const skillBookPages = [
+  { title: "Frontend", number: "01", description: "Thoughtful, responsive interfaces.", skills: ["React", "JavaScript", "HTML & CSS", "Tailwind CSS"] },
+  { title: "Backend", number: "02", description: "Dependable application logic and APIs.", skills: ["Node.js", "Express.js", "REST APIs", "MongoDB"] },
+  { title: "Agentic AI", number: "03", description: "AI-assisted workflows from debugging to validation.", skills: ["GitHub Copilot", "Claude", "ChatGPT"] },
+];
 
 const skillIcons = {
   "React": SiReact, "JavaScript": SiJavascript, "Tailwind CSS": SiTailwindcss,
@@ -51,7 +62,6 @@ function SkillMarquee({ skills, reverse = false }) {
 }
 
 export default function Home() {
-  const visualRef = useRef(null);
   const projectHoverTimer = useRef(null);
   const [projectIndex, setProjectIndex] = useState(0);
   const [activeSkill, setActiveSkill] = useState(0);
@@ -82,32 +92,45 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    const node = visualRef.current;
-    if (!node || !window.matchMedia("(pointer: fine)").matches) return undefined;
-    const move = (event) => {
-      const bounds = node.getBoundingClientRect();
-      if (!bounds) return;
-      node.style.setProperty("--mouse-x", `${event.clientX - bounds.left}px`);
-      node.style.setProperty("--mouse-y", `${event.clientY - bounds.top}px`);
-      node.style.setProperty("--tilt-x", `${((event.clientY - bounds.top) / bounds.height - 0.5) * -5}deg`);
-      node.style.setProperty("--tilt-y", `${((event.clientX - bounds.left) / bounds.width - 0.5) * 5}deg`);
-    };
-    node.addEventListener("mousemove", move);
-    return () => node.removeEventListener("mousemove", move);
-  }, []);
-
   return (
     <div className="home-editorial">
       <section className="hero-section" aria-labelledby="hero-title">
         <motion.div className="hero-copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <span className="availability-pill"><i /> Open to software development opportunities</span>
-          <h1 id="hero-title"><span>ABDUL</span><span>RAHIM.</span></h1>
+          <h1 id="hero-title" className="hero-name-particles" aria-label="Abdul Rahim">
+            {["Abdul", "Rahim"].map((name) => (
+              <ParticleText
+                key={name}
+                className="hero-name-particle-effect"
+                text={name}
+                particleSize={3}
+                density={4}
+                color="#f0f2f2"
+                highlightColor="#8b5cf6"
+                highlightMode="motion"
+                shape="circle"
+                intro="scan"
+                scatter={130}
+                gatherDuration={1200}
+                stagger={240}
+                clickBurst
+                burstStrength={0.8}
+                pointerRepel={24}
+                repelRadius={105}
+                idleDrift={0}
+                trigger="hover"
+                fontSize="clamp(3rem, 10vw, 8rem)"
+                fontWeight={850}
+                fontFamily="Sora, Inter, sans-serif"
+                glow={false}
+              />
+            ))}
+          </h1>
           <div className="hero-role">Software Developer <b>/</b> React & Full Stack <b>/</b> Java</div>
           <p>Designing thoughtful interfaces.<br />Engineering reliable digital experiences.</p>
           <div className="hero-actions">
             <Link className="editorial-button primary" to="/projects">Explore my work <FaArrowRight /></Link>
-            <a className="editorial-button secondary" href="/abdulRahim_Resume.pdf" download>Download resume</a>
+            <Link className="editorial-button secondary" to="/resume">View resume</Link>
           </div>
           <div className="hero-socials">
             <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
@@ -115,45 +138,32 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <motion.div
-          ref={visualRef}
-          className="developer-visual"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-          aria-label="Developer technology workspace"
-        >
-          <div className="visual-grid" />
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-          <motion.div className="profile-chip" whileHover={{ y: -6, rotate: 1 }} transition={{ type: "spring", stiffness: 300 }}>
-            <img
-              src="https://res.cloudinary.com/divypkla0/image/upload/v1794085279/AbdulRahim_pp_yn5t5j.jpg"
-              alt="Abdul Rahim"
-            />
-            <div><span>Available now</span><strong>Abdul Rahim</strong></div>
-            <span className="profile-live"><Wifi size={11} /></span>
-          </motion.div>
-          <div className="code-panel">
-            <div className="code-panel-bar"><span /><span /><span /><b>portfolio.tsx</b></div>
-            <pre><code><em>const</em> developer = {"{"}{"\n"}  name: <strong>"Abdul Rahim"</strong>,{"\n"}  focus: <strong>"Full-stack products"</strong>,{"\n"}  location: <strong>"Toronto"</strong>{"\n"}{"}"};</code></pre>
-            <div className="terminal-status"><Terminal size={13} /><span>build successful</span><motion.i animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }} /></div>
-          </div>
-          <div className="visual-stack">
-            {[["REACT", Braces], ["NODE", Terminal], ["SQL", Database], ["API", Sparkles]].map(([label, Icon], index) => (
-              <motion.button
-                type="button"
-                key={label}
-                className={activeSkill === index ? "active" : ""}
-                onClick={() => setActiveSkill(index)}
-                whileHover={{ x: -5, scale: 1.03 }}
-                aria-label={`Highlight ${label}`}
-              >
-                <Icon size={12} /> {label}
-              </motion.button>
-            ))}
-          </div>
-          <div className="visual-index">AR / 2026</div>
-        </motion.div>
+        <div className="portrait-stage">
+          <Lightning
+            className="hero-lightning"
+            color="#8b5cf6"
+            bolts={1}
+            spread={0.8}
+            branches={0.65}
+            size={0.85}
+            thickness={1}
+            glow={1.2}
+            intensity={0.8}
+            speed={0.5}
+            flicker={0.6}
+            mouseInteraction
+            mouseStrength={0.55}
+            clickStrike={false}
+            intro
+            fade={0.35}
+            opacity={0.72}
+          />
+          <img
+            className="hero-person"
+            src="https://res.cloudinary.com/divypkla0/image/upload/v1794698142/Bearded_Man_in_Beige_Coat_Transparent_Cutout_fozep5.png"
+            alt="Abdul Rahim"
+          />
+        </div>
 
         <a className="scroll-cue" href="#about" aria-label="Scroll to about section"><span>Scroll</span><FaArrowDown /></a>
       </section>
@@ -167,14 +177,76 @@ export default function Home() {
           <p className="about-lead">I build complete digital experiences — from responsive interfaces to dependable application logic.</p>
           <p>In December 2025, I graduated with a Computer Programming diploma from Sault College, Toronto. My focus is React and full-stack development, with practical experience across Node.js, REST APIs, MongoDB, MySQL, and SQL Server. I am also continuing to develop my Java and Spring Boot knowledge.</p>
         </motion.div>
-        <div className="education-panel">
-          <span className="education-year">2025</span>
-          <div><span>Education / Diploma</span><strong>Computer Programming</strong><small>Sault College — Toronto, Ontario</small></div>
+        <div className="about-showcase">
+          <div className="about-story">
+            <ElectricBorder className="workspace-border" color="#8b5cf6" glowColor="#22d3ee" borderRadius={24}>
+              <div className="developer-visual" aria-label="Developer technology workspace">
+                <div className="visual-grid" />
+                <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+                <div className="code-panel">
+                  <div className="code-panel-bar"><span /><span /><span /><b>portfolio.tsx</b></div>
+                  <pre><code><em>const</em> developer = {"{"}{"\n"}  name: <strong>"Abdul Rahim"</strong>,{"\n"}  focus: <strong>"Full-stack products"</strong>,{"\n"}  location: <strong>"Toronto"</strong>{"\n"}{"}"};</code></pre>
+                  <div className="terminal-status"><Terminal size={13} /><span>build successful</span><motion.i animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }} /></div>
+                </div>
+                <div className="visual-stack">
+                  {[["REACT", Braces], ["NODE", Terminal], ["SQL", Database], ["API", Sparkles]].map(([label, Icon], index) => (
+                    <motion.button
+                      type="button"
+                      key={label}
+                      className={activeSkill === index ? "active" : ""}
+                      onClick={() => setActiveSkill(index)}
+                      whileHover={{ x: -5, scale: 1.03 }}
+                      aria-label={`Highlight ${label}`}
+                    >
+                      <Icon size={12} /> {label}
+                    </motion.button>
+                  ))}
+                </div>
+                <div className="visual-index">AR / 2026</div>
+              </div>
+            </ElectricBorder>
+            <ElectricBorder className="education-border" color="#6a32eb" borderRadius={16}>
+              <div className="education-panel" data-scroll-reveal>
+                <span className="education-year">2025</span>
+                <div><span>Education / Diploma</span><strong>Computer Programming</strong><small>Sault College — Toronto, Ontario</small></div>
+              </div>
+            </ElectricBorder>
+          </div>
+          <ElectricBorder className="skills-book-border" color="#f2eded" glowColor="#ff00dd" borderRadius={24} intensity={0.7} interactive={false}>
+            <div className="skills-book-feature" aria-labelledby="skills-book-title">
+              <div className="skills-book-heading">
+                <span>THE SKILLS EDIT <i /> VOL. 01</span>
+                <h3 id="skills-book-title">My <em>skills.</em></h3>
+                <p>A collection of the tools and ideas behind my work.</p>
+              </div>
+              <div className="skills-book-visual">
+                <SkillsOrb />
+                <Folder mode="book" label="My skills" color="#54358d" paperColor="#181323" size={1.12} layout="row" draggable={false}>
+                  {skillBookPages.map((page) => (
+                    <div className="skills-book-page" key={page.title}>
+                      <span className="skills-book-page-number">{page.number} / MY SKILLS</span>
+                      <strong>{page.title}</strong>
+                      <p>{page.description}</p>
+                      <div className="skills-book-page-list">
+                        {page.skills.map((skill) => <span key={skill}>{skill}</span>)}
+                      </div>
+                    </div>
+                  ))}
+                </Folder>
+              </div>
+              <div className="skills-book-footer">
+                <ol>
+                  {skillBookPages.map((page) => <li key={page.title}><span>{page.number}</span>{page.title}</li>)}
+                </ol>
+                <p><span aria-hidden="true">↗</span> Open the book &amp; select a page</p>
+              </div>
+            </div>
+          </ElectricBorder>
         </div>
       </section>
 
       <section className="stack-editorial" id="skills">
-        <div className="section-heading-row">
+        <div className="section-heading-row" data-scroll-reveal>
           <div><span className="section-index">02 / STACK</span><h2>Built across the stack.</h2></div>
           <p>Practical tools for thoughtful interfaces and maintainable systems.</p>
         </div>
@@ -197,7 +269,7 @@ export default function Home() {
       </section>
 
       <section className="featured-editorial" id="projects">
-        <div className="section-heading-row">
+        <div className="section-heading-row" data-scroll-reveal>
           <div><span className="section-index">03 / SELECTED WORK</span><h2>Projects with purpose.</h2></div>
           <Link className="text-link" to="/projects">View all projects <FaArrowRight /></Link>
         </div>
@@ -212,7 +284,7 @@ export default function Home() {
               )}
             </motion.div>
           </div>
-          <div className="featured-details">
+          <div className="featured-details" data-scroll-reveal>
             <span className="project-status">{visibleProject.status}</span>
             <h3>{visibleProject.title}</h3>
             <p>{visibleProject.summary}</p>
@@ -227,7 +299,7 @@ export default function Home() {
       </section>
 
       <section className="project-index-editorial" aria-label="Project index">
-        <span className="section-index">04 / PROJECT INDEX</span>
+        <span className="section-index" data-scroll-reveal>04 / PROJECT INDEX</span>
         <div>
           {projects.map((project, index) => (
             <motion.button

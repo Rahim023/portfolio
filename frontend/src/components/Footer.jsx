@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
         <div className="footer-links">
           <Link to="/">Home</Link><Link to="/projects">Projects</Link><Link to="/contact">Contact</Link>
-          <a href="/abdulRahim_Resume.pdf" download>Resume</a>
+          <Link to="/resume">View resume</Link>
         </div>
         <div className="footer-socials">
           <a href="https://github.com/Rahim023" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
